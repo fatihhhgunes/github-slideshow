@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "ClickRusher",
+    "slug": "clickrusher",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#000009"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.clickrusher.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#000009"
+      },
+      "package": "com.clickrusher.app"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
