@@ -13,13 +13,21 @@ function rankStyle(rank: number) {
 
 export default function NationsGrid({ onTeamPress }: Props) {
   return (
-    <div style={{ width: '100%', paddingTop: 32, paddingBottom: 16, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{ width: '100%', paddingTop: 99, paddingBottom: 16, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div style={{ fontFamily: FF.lilita, fontSize: 18, letterSpacing: 3, color: '#fff', textTransform: 'uppercase', marginBottom: 10 }}>
         TÜM TAKIMLAR
       </div>
       <div style={{ width: '85%', height: 2, marginBottom: 20, borderRadius: 2, backgroundColor: '#fff', boxShadow: '0 0 10px rgba(255,255,255,0.8)' }} />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '22px 0', width: '100%', paddingInline: 8 }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        rowGap: 148,
+        columnGap: 165,
+        width: '100%',
+        paddingInline: 8,
+        paddingTop: 14,
+      }}>
         {SORTED_TEAMS.map((team, index) => {
           const rank = index + 1;
           const rs = rankStyle(rank);
@@ -36,7 +44,7 @@ export default function NationsGrid({ onTeamPress }: Props) {
                   <span style={{ fontFamily: FF.bc, fontWeight: 900, fontSize: 10, letterSpacing: 1, color: rs.color }}>#{rank}</span>
                 </div>
                 <div style={{
-                  width: 72, height: 72, borderRadius: 36, border: `2px solid ${rs.borderColor}`,
+                  width: 139, height: 139, borderRadius: 70, border: `2px solid ${rs.borderColor}`,
                   overflow: 'hidden', backgroundColor: 'rgba(5,20,40,0.4)',
                 }}>
                   <img src={`${FLAG_SM}${team.fc}.png`} alt={team.name}
@@ -45,7 +53,7 @@ export default function NationsGrid({ onTeamPress }: Props) {
               </div>
               <span style={{
                 fontFamily: FF.bc, fontWeight: 700, fontSize: 12, letterSpacing: 0.5, color: '#fff',
-                textAlign: 'center', maxWidth: 80, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                textAlign: 'center', maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
               }}>{team.name}</span>
             </div>
           );

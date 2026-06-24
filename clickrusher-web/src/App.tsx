@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { C, FF } from './theme';
 import StarField from './components/StarField';
 import HomeScreen from './screens/HomeScreen';
+import { addQuizScore } from './data/scores';
 import LangScreen from './screens/quiz/LangScreen';
 import CountryScreen from './screens/quiz/CountryScreen';
 import ModeScreen from './screens/quiz/ModeScreen';
@@ -22,7 +23,7 @@ function QuizFlow() {
   if (step === 'lang')    return <LangScreen onSelect={l => { setLang(l); setStep('country'); }} />;
   if (step === 'country') return <CountryScreen lang={lang} onConfirm={(i,n) => { setCountryIdx(i); setPlayerName(n); setStep('mode'); }} onBack={() => setStep('lang')} />;
   if (step === 'mode')    return <ModeScreen lang={lang} onSolo={() => setStep('game')} onBack={() => setStep('country')} />;
-  if (step === 'game')    return <GameScreen lang={lang} countryIdx={countryIdx} playerName={playerName} onFinish={(s,a) => { setFinalScore(s); setAnswers(a); setStep('over'); }} />;
+  if (step === 'game')    return <GameScreen lang={lang} countryIdx={countryIdx} playerName={playerName} onFinish={(s,a) => { addQuizScore(countryIdx, s); setFinalScore(s); setAnswers(a); setStep('over'); }} />;
   return <OverScreen lang={lang} countryIdx={countryIdx} playerName={playerName} score={finalScore} answers={answers} onPlayAgain={() => setStep('lang')} />;
 }
 
@@ -35,7 +36,7 @@ export default function App() {
 
       {/* Screen area */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative', zIndex: 1 }}>
-        {tab === 'home' ? <HomeScreen /> : <QuizFlow />}
+        {tab === 'home' ? <HomeScreen onNavigateQuiz={() => setTab('quiz')} /> : <QuizFlow />}
       </div>
 
       {/* Bottom Tab Bar */}

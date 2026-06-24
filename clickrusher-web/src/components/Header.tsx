@@ -50,11 +50,11 @@ export default function Header({ onMenuPress }: Props) {
 
       <div style={{ textAlign: 'center' }}>
         <div style={{
-          fontFamily: FF.bc, fontWeight: 900, fontSize: 36, letterSpacing: 4, color: '#fff',
+          fontFamily: FF.bc, fontWeight: 900, fontSize: 62, letterSpacing: 4, color: '#fff',
           textShadow: '0 0 20px rgba(0,200,255,0.8)',
         }}>CLICKRUSHER</div>
         <div style={{
-          fontFamily: FF.bc, fontWeight: 700, fontSize: 11, letterSpacing: 10, color: C.cyan, marginTop: 1,
+          fontFamily: FF.bc, fontWeight: 700, fontSize: 11, letterSpacing: 13, color: C.cyan, marginTop: 1,
         }}>TOURNAMENT 2026</div>
       </div>
 

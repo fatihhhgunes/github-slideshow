@@ -115,14 +115,29 @@ export default function GameScreen({ lang, countryIdx, playerName, onFinish }: P
           <span style={{ color: '#fff', fontSize: 13 }}>{t.score} {score}</span>
         </div>
 
-        {/* Progress dots */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 14 }}>
-          {Array.from({length:Q_TOTAL},(_,i) => (
-            <div key={i} style={{
-              width: 30, height: 5, borderRadius: 3,
-              backgroundColor: i < qCur ? '#ffd700' : i === qCur ? '#fff' : 'rgba(255,255,255,0.25)',
-            }} />
-          ))}
+        {/* Race track */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 14 }}>
+          {Array.from({ length: Q_TOTAL }, (_, i) => {
+            const isPast = i < qCur;
+            const isCur  = i === qCur;
+            const wasOk  = answered[i];
+            const dotBg  = isPast ? (wasOk ? '#43a047' : '#e53935') : isCur ? '#fff' : 'rgba(255,255,255,0.2)';
+            const lineBg = (i > 0 && i <= qCur) ? (answered[i-1] ? '#43a047' : '#e53935') : 'rgba(255,255,255,0.2)';
+            return (
+              <React.Fragment key={i}>
+                {i > 0 && <div style={{ width: 18, height: 2, backgroundColor: lineBg, flexShrink: 0 }} />}
+                <div style={{
+                  width: 26, height: 26, borderRadius: 13, backgroundColor: dotBg,
+                  border: isCur ? '2px solid #ffd700' : '2px solid transparent',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                }}>
+                  <span style={{ color: isCur ? '#222' : '#fff', fontSize: 9, fontWeight: 700 }}>
+                    {isPast ? (wasOk ? '✓' : '✗') : `${i + 1}`}
+                  </span>
+                </div>
+              </React.Fragment>
+            );
+          })}
         </div>
 
         {/* Timer + Question */}

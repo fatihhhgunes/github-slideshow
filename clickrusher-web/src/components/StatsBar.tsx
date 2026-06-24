@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { C, FF, FLAG_SM } from '../theme';
+import { C, FF } from '../theme';
+import { getLeader } from '../data/scores';
 
 export default function StatsBar() {
   const [rushers, setRushers] = useState(2475327);
+  const [leader,  setLeader]  = useState(() => getLeader());
   const countRef = useRef(2475327);
 
   useEffect(() => {
     const id = setInterval(() => {
       countRef.current += Math.floor(Math.random() * 40 - 8);
       setRushers(countRef.current);
+      setLeader(getLeader());
     }, 2200);
     return () => clearInterval(id);
   }, []);
@@ -28,7 +31,7 @@ export default function StatsBar() {
   return (
     <div style={{
       display: 'flex', justifyContent: 'center', gap: 2,
-      padding: '10px 8px', backgroundColor: C.statsBg,
+      padding: '14px 8px 10px', backgroundColor: C.statsBg,
       borderBottom: '1px solid rgba(0,200,255,0.07)', flexShrink: 0,
     }}>
       <div style={stat}>
@@ -37,13 +40,13 @@ export default function StatsBar() {
       </div>
 
       <div style={{ ...stat, borderColor: 'rgba(0,200,255,0.35)', backgroundColor: 'rgba(0,200,255,0.04)' }}>
-        <span style={lbl}>TOURNAMENT LEADER</span>
+        <span style={lbl}>LEADER</span>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
           <div style={{ width: 22, height: 22, borderRadius: 11, backgroundColor: C.cyan, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: FF.bc, fontWeight: 900, fontSize: 9, color: '#020C18' }}>#1</span>
           </div>
-          <img src={`${FLAG_SM}jp.png`} style={{ width: 22, height: 14, borderRadius: 2, objectFit: 'cover' }} alt="jp" />
-          <span style={{ ...val, color: C.cyan, fontSize: 16 }}>Japonya</span>
+          <span style={{ fontSize: 18 }}>{leader.country.f}</span>
+          <span style={{ ...val, color: C.cyan, fontSize: 16 }}>{leader.country.n}</span>
         </div>
       </div>
 
