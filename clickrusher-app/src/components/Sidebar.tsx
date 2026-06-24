@@ -10,19 +10,21 @@ const SW = Dimensions.get('window').width;
 const SIDEBAR_W = Math.min(300, SW * 0.82);
 
 const MENU_ITEMS = [
-  { icon: '♟️', title: 'Click Yarışı Oluştur', sub: 'Kendi yarışını başlat', color: 'rgba(0,200,255,0.1)' },
-  { icon: '👤', title: 'Profilim',              sub: 'İstatistikler ve yarış geçmişi', color: 'rgba(120,60,255,0.12)' },
-  { icon: '🏆', title: 'Turnuva',               sub: '2026 Dünya Kupası özel etkinliği', color: 'rgba(255,140,0,0.1)' },
-  { icon: '📊', title: 'Liderlik Tablosu',       sub: 'Global sıralamalar', color: 'rgba(0,255,136,0.08)' },
-  { icon: '⚙️', title: 'Hesap Ayarları',         sub: 'Bildirimler, gizlilik, dil', color: 'rgba(255,255,255,0.04)' },
+  { key: 'race',     icon: '♟️', title: 'Click Yarışı Oluştur', sub: 'Kendi yarışını başlat',              color: 'rgba(0,200,255,0.1)' },
+  { key: 'quiz',     icon: '❓', title: 'Quiz Oyna',             sub: 'Futbol bilgini test et',             color: 'rgba(255,50,120,0.14)' },
+  { key: 'profile',  icon: '👤', title: 'Profilim',              sub: 'İstatistikler ve yarış geçmişi',     color: 'rgba(120,60,255,0.12)' },
+  { key: 'tourney',  icon: '🏆', title: 'Turnuva',               sub: '2026 Dünya Kupası özel etkinliği',   color: 'rgba(255,140,0,0.1)' },
+  { key: 'board',    icon: '📊', title: 'Liderlik Tablosu',       sub: 'Global sıralamalar',                 color: 'rgba(0,255,136,0.08)' },
+  { key: 'settings', icon: '⚙️', title: 'Hesap Ayarları',         sub: 'Bildirimler, gizlilik, dil',         color: 'rgba(255,255,255,0.04)' },
 ];
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  onItemPress?: (key: string) => void;
 }
 
-export default function Sidebar({ open, onClose }: Props) {
+export default function Sidebar({ open, onClose, onItemPress }: Props) {
   const insets = useSafeAreaInsets();
   const x = useRef(new Animated.Value(-SIDEBAR_W)).current;
   const overlayOp = useRef(new Animated.Value(0)).current;
@@ -55,14 +57,24 @@ export default function Sidebar({ open, onClose }: Props) {
 
         <ScrollView style={styles.body} showsVerticalScrollIndicator={false}>
           {MENU_ITEMS.map(item => (
-            <TouchableOpacity key={item.title} style={styles.card}>
+            <TouchableOpacity
+              key={item.key}
+              style={[styles.card, item.key === 'quiz' && styles.cardQuiz]}
+              onPress={() => onItemPress?.(item.key)}
+              activeOpacity={0.75}
+            >
               <View style={[styles.iconBox, { backgroundColor: item.color }]}>
                 <Text style={styles.iconText}>{item.icon}</Text>
               </View>
-              <View>
+              <View style={{ flex: 1 }}>
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text style={styles.cardSub}>{item.sub}</Text>
               </View>
+              {item.key === 'quiz' && (
+                <View style={styles.quizBadge}>
+                  <Text style={styles.quizBadgeText}>YENİ</Text>
+                </View>
+              )}
             </TouchableOpacity>
           ))}
 
@@ -140,6 +152,22 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.07)',
     borderRadius: 12,
     marginBottom: 8,
+  },
+  cardQuiz: {
+    borderColor: 'rgba(255,50,120,0.35)',
+    backgroundColor: 'rgba(255,50,120,0.06)',
+  },
+  quizBadge: {
+    backgroundColor: '#ff3278',
+    borderRadius: 6,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+  },
+  quizBadgeText: {
+    fontSize: 9,
+    fontWeight: '900',
+    color: '#fff',
+    letterSpacing: 1,
   },
   iconBox: {
     width: 44,

@@ -3,6 +3,7 @@ import {
   View, ScrollView, Text, TouchableOpacity, StyleSheet,
   SafeAreaView, StatusBar,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { C, F } from '../theme';
 import Header from '../components/Header';
 import GlobeView from '../components/GlobeView';
@@ -21,9 +22,17 @@ const TABS = [
 ];
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState('bayrak');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+
+  const handleSidebarItem = (key: string) => {
+    if (key === 'quiz') {
+      setSidebarOpen(false);
+      (navigation as any).navigate('Quiz');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -74,7 +83,7 @@ export default function HomeScreen() {
         </ScrollView>
       </SafeAreaView>
 
-      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} onItemPress={handleSidebarItem} />
       <TeamModal team={selectedTeam} onClose={() => setSelectedTeam(null)} />
     </View>
   );
