@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, ScrollView,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { QUIZ_COUNTRIES } from '../../data/questions';
 
@@ -11,19 +9,54 @@ interface Props {
   onBack: () => void;
 }
 
+const BAD_WORDS = [
+  'amk', 'amq', 'bok', 'orospu', 'pic', 'sik', 'yarrak', 'kahpe', 'oc',
+  'amina', 'sikik', 'kic', 'ibne', 'pezevenk', 'serefsiz', 'gottum', 'got',
+  'orosbuçuk', 'orosbuçuk', 'bitch', 'fuck', 'shit', 'ass',
+];
+
+function normalize(s: string): string {
+  return s.toLowerCase()
+    .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's')
+    .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+function hasProfanity(text: string): boolean {
+  const n = normalize(text);
+  return BAD_WORDS.some(w => n.includes(normalize(w)));
+}
+
 const T = {
-  tr: { title: 'Ülkeni seç', cont: 'Devam →', placeholder: 'Adın (isteğe bağlı)', err: 'Lütfen bir ülke seç!' },
-  en: { title: 'Choose your country', cont: 'Continue →', placeholder: 'Your name (optional)', err: 'Please select a country!' },
+  tr: {
+    title: 'Ülkeni seç', cont: 'Devam →',
+    placeholder: 'Takma adın (zorunlu, min 2 karakter)',
+    errCountry:  'Lütfen bir ülke seç!',
+    errName:     'Ad en az 2 karakter olmalı!',
+    errProfanity:'Lütfen uygun bir takma ad gir.',
+  },
+  en: {
+    title: 'Choose your country', cont: 'Continue →',
+    placeholder: 'Nickname (required, min 2 chars)',
+    errCountry:  'Please select a country!',
+    errName:     'Name must be at least 2 characters!',
+    errProfanity:'Please enter an appropriate nickname.',
+  },
 };
 
 export default function CountryScreen({ lang, onConfirm, onBack }: Props) {
-  const [sel, setSel] = useState<number | null>(null);
+  const [sel,  setSel]  = useState<number | null>(null);
   const [name, setName] = useState('');
+  const [err,  setErr]  = useState('');
   const t = T[lang];
 
   const confirm = () => {
-    if (sel === null) { alert(t.err); return; }
-    onConfirm(sel, name.trim() || QUIZ_COUNTRIES[sel].n);
+    if (sel === null)             { setErr(t.errCountry);   return; }
+    const trimmed = name.trim();
+    if (trimmed.length < 2)       { setErr(t.errName);      return; }
+    if (hasProfanity(trimmed))    { setErr(t.errProfanity); return; }
+    setErr('');
+    onConfirm(sel, trimmed);
   };
 
   return (
@@ -36,7 +69,7 @@ export default function CountryScreen({ lang, onConfirm, onBack }: Props) {
             <TouchableOpacity
               key={c.n}
               style={[styles.cc, sel === i && styles.ccSel]}
-              onPress={() => setSel(i)}
+              onPress={() => { setSel(i); setErr(''); }}
             >
               <Text style={styles.cf}>{c.f}</Text>
               <Text style={styles.cn}>{c.n}</Text>
@@ -45,13 +78,14 @@ export default function CountryScreen({ lang, onConfirm, onBack }: Props) {
         </View>
 
         <TextInput
-          style={styles.input}
+          style={[styles.input, !!err && styles.inputErr]}
           placeholder={t.placeholder}
           placeholderTextColor="#999"
           value={name}
-          onChangeText={setName}
+          onChangeText={v => { setName(v); setErr(''); }}
           maxLength={14}
         />
+        {!!err && <Text style={styles.errText}>{err}</Text>}
 
         <TouchableOpacity style={styles.btnPrimary} onPress={confirm}>
           <Text style={styles.btnText}>{t.cont}</Text>
@@ -104,15 +138,8 @@ const styles = StyleSheet.create({
     borderColor: '#7b2fbe',
     backgroundColor: '#d9bcff',
   },
-  cf: {
-    fontSize: 24,
-  },
-  cn: {
-    fontSize: 9,
-    textAlign: 'center',
-    color: '#555',
-    marginTop: 2,
-  },
+  cf: { fontSize: 24 },
+  cn: { fontSize: 9, textAlign: 'center', color: '#555', marginTop: 2 },
   input: {
     borderWidth: 2,
     borderColor: '#ddd',
@@ -120,8 +147,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 12,
     fontSize: 15,
-    marginBottom: 10,
+    marginBottom: 6,
     color: '#222',
+  },
+  inputErr: {
+    borderColor: '#e53935',
+  },
+  errText: {
+    fontSize: 12,
+    color: '#e53935',
+    marginBottom: 8,
+    marginLeft: 4,
   },
   btnPrimary: {
     backgroundColor: '#7b2fbe',
@@ -129,6 +165,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     alignItems: 'center',
     marginBottom: 8,
+    marginTop: 4,
   },
   btnText: {
     color: '#fff',

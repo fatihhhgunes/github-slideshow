@@ -10,6 +10,7 @@ import CountryScreen from '../screens/quiz/CountryScreen';
 import ModeScreen from '../screens/quiz/ModeScreen';
 import GameScreen from '../screens/quiz/GameScreen';
 import OverScreen from '../screens/quiz/OverScreen';
+import { addQuizScore } from '../data/scores';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,7 +55,7 @@ function QuizStack() {
         lang={lang}
         countryIdx={countryIdx}
         playerName={playerName}
-        onFinish={(score, ans) => { setFinalScore(score); setAnswers(ans); setStep('over'); }}
+        onFinish={(score, ans) => { addQuizScore(countryIdx, score); setFinalScore(score); setAnswers(ans); setStep('over'); }}
       />
     );
   }

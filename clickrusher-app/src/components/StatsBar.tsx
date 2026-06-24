@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import { C, F, FLAG_SM } from '../theme';
+import { View, Text, StyleSheet } from 'react-native';
+import { C, F } from '../theme';
+import { getLeader } from '../data/scores';
 
 export default function StatsBar() {
   const [rushers, setRushers] = useState(2475327);
+  const [leader,  setLeader]  = useState(() => getLeader());
   const countRef = useRef(2475327);
 
   useEffect(() => {
     const id = setInterval(() => {
       countRef.current += Math.floor(Math.random() * 40 - 8);
       setRushers(countRef.current);
+      setLeader(getLeader());
     }, 2200);
     return () => clearInterval(id);
   }, []);
@@ -22,13 +25,13 @@ export default function StatsBar() {
       </View>
 
       <View style={[styles.stat, styles.lead]}>
-        <Text style={styles.lbl}>TOURNAMENT LEADER</Text>
+        <Text style={styles.lbl}>LEADER</Text>
         <View style={styles.leadRow}>
           <View style={styles.chip}>
             <Text style={styles.chipText}>#1</Text>
           </View>
-          <Image source={{ uri: `${FLAG_SM}jp.png` }} style={styles.flag} />
-          <Text style={[styles.val, { color: C.cyan, fontSize: 16 }]}>Japonya</Text>
+          <Text style={styles.flagEmoji}>{leader.country.f}</Text>
+          <Text style={[styles.val, { color: C.cyan, fontSize: 16 }]}>{leader.country.n}</Text>
         </View>
       </View>
 
@@ -100,10 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     color: '#020C18',
   },
-  flag: {
-    width: 22,
-    height: 14,
-    borderRadius: 2,
-    resizeMode: 'cover',
+  flagEmoji: {
+    fontSize: 18,
   },
 });

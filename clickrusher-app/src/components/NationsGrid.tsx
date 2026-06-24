@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
     width: 90,
+    paddingTop: 14,
   },
   flagWrap: {
     position: 'relative',
