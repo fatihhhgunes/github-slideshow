@@ -387,6 +387,123 @@ header{
   font-size:12px;color:rgba(255,255,255,.28);}
 .chat-login-hint span{color:var(--cyan);cursor:pointer;text-decoration:underline;}
 
+/* ── SETTINGS MODAL ── */
+#settings-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:2100;
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);}
+#settings-modal.hidden{display:none;}
+.settings-box{background:linear-gradient(145deg,#020e1e,#051830);
+  border:1.5px solid rgba(0,200,255,.3);border-radius:16px;
+  padding:28px 28px 24px;width:94%;max-width:440px;position:relative;
+  box-shadow:0 0 60px rgba(0,200,255,.1);}
+.settings-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;
+  letter-spacing:4px;color:var(--cyan);text-align:center;margin-bottom:22px;
+  text-shadow:0 0 12px rgba(0,200,255,.5);}
+.settings-section{margin-bottom:18px;}
+.settings-sec-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:800;
+  letter-spacing:3px;color:var(--dim2);text-transform:uppercase;margin-bottom:9px;}
+.settings-row{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;background:rgba(255,255,255,.04);border-radius:8px;margin-bottom:6px;}
+.settings-row-label{font-family:'Barlow',sans-serif;font-size:13px;color:rgba(255,255,255,.75);}
+.settings-row-sub{font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,.3);margin-top:2px;}
+.settings-btn-row{display:flex;gap:6px;}
+.settings-lang-btn{padding:7px 16px;border:1.5px solid rgba(0,200,255,.25);border-radius:6px;
+  background:transparent;color:rgba(255,255,255,.45);font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:800;letter-spacing:1px;cursor:pointer;transition:all .18s;}
+.settings-lang-btn.on{background:rgba(0,200,255,.18);border-color:var(--cyan);color:var(--cyan);}
+.settings-notif-btn{padding:8px 18px;border:1.5px solid rgba(0,255,136,.3);border-radius:6px;
+  background:rgba(0,255,136,.06);color:#00FF88;font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:800;letter-spacing:1px;cursor:pointer;transition:all .18s;}
+.settings-notif-btn:hover{background:rgba(0,255,136,.14);}
+.settings-privacy{font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,.3);
+  line-height:1.7;padding:10px 14px;background:rgba(0,0,0,.25);border-radius:8px;}
+
+/* ── LEADERBOARD OVERLAY ── */
+#lb-overlay{position:fixed;inset:0;background:#000009;z-index:1400;
+  overflow-y:auto;display:none;flex-direction:column;}
+#lb-overlay.open{display:flex;}
+.lb-topbar{position:sticky;top:0;z-index:10;background:rgba(0,0,9,.97);
+  backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,200,255,.12);
+  padding:14px 20px;display:flex;align-items:center;gap:16px;}
+.lb-back-btn{background:rgba(0,200,255,.08);border:1.5px solid rgba(0,200,255,.25);
+  border-radius:8px;color:var(--cyan);padding:8px 16px;font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:800;letter-spacing:1px;cursor:pointer;transition:all .18s;}
+.lb-back-btn:hover{background:rgba(0,200,255,.18);}
+.lb-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;
+  letter-spacing:5px;color:#fff;text-shadow:0 0 16px rgba(0,200,255,.5);}
+.lb-content{flex:1;padding:20px 16px 40px;max-width:900px;margin:0 auto;width:100%;}
+.lb-user-banner{background:rgba(4,14,34,.9);border:1.5px solid rgba(0,200,255,.2);
+  border-radius:14px;padding:18px 20px;margin-bottom:22px;
+  box-shadow:0 0 30px rgba(0,200,255,.06);}
+.lb-banner-title{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:800;
+  letter-spacing:3px;color:var(--dim);text-transform:uppercase;margin-bottom:14px;}
+.lb-banner-flags{display:flex;gap:16px;flex-wrap:wrap;}
+.lb-flag-chip{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.lb-flag-chip img{width:52px;height:35px;object-fit:cover;border-radius:4px;
+  box-shadow:0 2px 10px rgba(0,0,0,.4);}
+.lb-flag-pts{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;
+  color:var(--cyan);letter-spacing:.5px;}
+.lb-flag-name{font-family:'Barlow',sans-serif;font-size:9px;color:var(--dim2);}
+.lb-banner-empty{font-family:'Barlow',sans-serif;font-size:12px;color:rgba(255,255,255,.25);
+  font-style:italic;}
+.lb-boxes{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.lb-boxes{grid-template-columns:1fr;}}
+.lb-box{background:rgba(4,12,28,.85);border:1px solid rgba(0,200,255,.12);
+  border-radius:12px;overflow:hidden;}
+.lb-box-hdr{padding:12px 16px;border-bottom:1px solid rgba(0,200,255,.08);
+  font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:800;
+  letter-spacing:2px;color:var(--dim2);text-transform:uppercase;}
+.lb-row{display:flex;align-items:center;gap:10px;padding:9px 16px;
+  border-bottom:1px solid rgba(255,255,255,.03);transition:background .15s;}
+.lb-row:hover{background:rgba(0,200,255,.04);}
+.lb-row.me{background:rgba(0,200,255,.07);border-left:3px solid var(--cyan);}
+.lb-rank{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;
+  color:var(--dim);width:28px;text-align:center;flex-shrink:0;}
+.lb-rank.gold{color:#FFD700;font-size:16px;}
+.lb-rank.silver{color:#C0C0C0;font-size:15px;}
+.lb-rank.bronze{color:#CD7F32;font-size:15px;}
+.lb-flag-sm{width:26px;height:17px;object-fit:cover;border-radius:2px;flex-shrink:0;}
+.lb-nick{flex:1;font-family:'Barlow Condensed',sans-serif;font-size:14px;
+  font-weight:700;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lb-pts{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;
+  color:var(--cyan);letter-spacing:.5px;flex-shrink:0;}
+.lb-empty{padding:24px 16px;text-align:center;font-family:'Barlow',sans-serif;
+  font-size:12px;color:rgba(255,255,255,.2);}
+.lb-loading{padding:24px 16px;text-align:center;font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;letter-spacing:2px;color:var(--dim);animation:blink 1.4s infinite;}
+
+/* ── FLAG PICKER (pre-activity) ── */
+#flag-picker{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:1800;
+  display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+#flag-picker.open{display:flex;}
+.fp-box{background:linear-gradient(145deg,#020e1e,#051830);border:1.5px solid rgba(0,200,255,.3);
+  border-radius:16px;padding:24px;width:94%;max-width:500px;max-height:90vh;
+  display:flex;flex-direction:column;box-shadow:0 0 50px rgba(0,200,255,.1);}
+.fp-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;
+  letter-spacing:3px;color:var(--cyan);text-align:center;margin-bottom:4px;}
+.fp-sub{font-family:'Barlow',sans-serif;font-size:11px;color:rgba(255,255,255,.3);
+  text-align:center;margin-bottom:16px;}
+.fp-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;
+  overflow-y:auto;flex:1;padding:2px;}
+.fp-grid::-webkit-scrollbar{width:3px;}
+.fp-grid::-webkit-scrollbar-thumb{background:rgba(0,200,255,.2);border-radius:2px;}
+.fp-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 3px;
+  border-radius:8px;cursor:pointer;border:2px solid transparent;transition:.15s;
+  background:rgba(255,255,255,.04);}
+.fp-item:hover{background:rgba(0,200,255,.08);}
+.fp-item.sel{border-color:var(--cyan);background:rgba(0,200,255,.12);}
+.fp-item img{width:36px;height:24px;object-fit:cover;border-radius:3px;}
+.fp-item span{font-family:'Barlow',sans-serif;font-size:7px;color:rgba(255,255,255,.4);
+  text-align:center;line-height:1.2;max-width:44px;}
+.fp-actions{display:flex;gap:8px;margin-top:14px;}
+.fp-skip{flex:1;padding:11px;border:1px solid rgba(255,255,255,.15);border-radius:8px;
+  background:transparent;color:rgba(255,255,255,.4);font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:800;letter-spacing:1px;cursor:pointer;transition:all .18s;}
+.fp-skip:hover{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.7);}
+.fp-confirm{flex:2;padding:11px;border:1.5px solid rgba(0,200,255,.5);border-radius:8px;
+  background:rgba(0,200,255,.14);color:var(--cyan);font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:900;letter-spacing:1.5px;cursor:pointer;transition:all .18s;}
+.fp-confirm:hover{background:rgba(0,200,255,.25);}
+
 /* User chip in header */
 .user-chip{display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:5px;
   padding:5px 10px 5px 5px;border-radius:20px;border:1px solid rgba(0,200,255,.15);
@@ -538,7 +655,7 @@ header{
         <div class="sb-card-sub">2026 Dünya Kupası özel etkinliği</div>
       </div>
     </a>
-    <a class="sb-card" href="#">
+    <a class="sb-card" href="#" onclick="openLeaderboard();closeSidebar();return false;">
       <div class="sb-card-icon" style="background:rgba(0,255,136,.08)">📊</div>
       <div>
         <div class="sb-card-title">Liderlik Tablosu</div>
@@ -555,7 +672,7 @@ header{
     <div class="sb-section">Açık Yarışlar</div>
     <div class="sb-empty">Şu an açık yarış yok</div>
     <div class="sb-section">Ayarlar</div>
-    <a class="sb-card" href="#">
+    <a class="sb-card" href="#" onclick="openSettings();closeSidebar();return false;">
       <div class="sb-card-icon" style="background:rgba(255,255,255,.04)">⚙️</div>
       <div>
         <div class="sb-card-title">Hesap Ayarları</div>
@@ -790,6 +907,88 @@ header{
 </div>
 
 <!-- AUTH MODAL -->
+<!-- ── SETTINGS MODAL ── -->
+<div id="settings-modal" class="hidden">
+  <div class="settings-box">
+    <button class="auth-close" onclick="closeSettings()">✕</button>
+    <div class="settings-title">⚙️ HESAP AYARLARI</div>
+
+    <div class="settings-section">
+      <div class="settings-sec-label">Dil / Language</div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-row-label">Arayüz Dili</div>
+          <div class="settings-row-sub">Site geneli görüntüleme dili</div>
+        </div>
+        <div class="settings-btn-row">
+          <button class="settings-lang-btn" id="slang-tr" onclick="setUiLang('tr')">🇹🇷 TR</button>
+          <button class="settings-lang-btn" id="slang-en" onclick="setUiLang('en')">🇬🇧 EN</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-sec-label">Bildirimler</div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-row-label">Push Bildirimleri</div>
+          <div class="settings-row-sub" id="notif-status">Durum kontrol ediliyor…</div>
+        </div>
+        <button class="settings-notif-btn" id="notif-btn" onclick="requestNotifPerms()">İzin Ver</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-sec-label">Gizlilik</div>
+      <div class="settings-privacy">
+        ClickRusher oyun skorlarını ve sıralamalarını sunmak amacıyla kullanıcı adı,
+        seçilen ülke ve puan verilerini saklar. E-posta adresiniz yalnızca hesap doğrulama
+        ve şifre sıfırlama için kullanılır; üçüncü taraflarla paylaşılmaz.<br><br>
+        Hesabınızı silmek için: <strong style="color:var(--cyan)">destek@clickrusher.com</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── LEADERBOARD OVERLAY ── -->
+<div id="lb-overlay">
+  <div class="lb-topbar">
+    <button class="lb-back-btn" onclick="closeLeaderboard()">← Geri</button>
+    <div class="lb-title">LİDERLİK TABLOSU</div>
+  </div>
+  <div class="lb-content">
+    <div class="lb-user-banner" id="lb-user-banner">
+      <div class="lb-banner-title">Desteklediğin Ülkeler &amp; Puanların</div>
+      <div class="lb-banner-flags" id="lb-banner-flags">
+        <div class="lb-banner-empty">Henüz puan kazanılmadı.</div>
+      </div>
+    </div>
+    <div class="lb-boxes">
+      <div class="lb-box">
+        <div class="lb-box-hdr">🌍 Ülke İçi Sıralama</div>
+        <div id="lb-country-list"><div class="lb-loading">Yükleniyor…</div></div>
+      </div>
+      <div class="lb-box">
+        <div class="lb-box-hdr">🏆 Genel Sıralama</div>
+        <div id="lb-global-list"><div class="lb-loading">Yükleniyor…</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FLAG PICKER (pre-activity) ── -->
+<div id="flag-picker">
+  <div class="fp-box">
+    <div class="fp-title">HANGİ ÜLKE İÇİN OYNUYORSUN?</div>
+    <div class="fp-sub">Seçtiğin ülke bu yarışmada kazandığın puanları alacak</div>
+    <div class="fp-grid" id="fp-grid"></div>
+    <div class="fp-actions">
+      <button class="fp-skip" onclick="fpConfirm(null)">Varsayılanı Kullan</button>
+      <button class="fp-confirm" onclick="fpConfirm(fpSelected)">Oyna →</button>
+    </div>
+  </div>
+</div>
+
 <div id="auth-modal" class="hidden">
   <div class="auth-box">
     <button class="auth-close" onclick="closeAuthModal()">✕</button>
@@ -1196,15 +1395,22 @@ const t3=document.getElementById('top3-grid');
 // ── POINT SYSTEM ──────────────────────────────────────────────────────
 function crLoadScores(){try{return JSON.parse(localStorage.getItem('CR_SCORES'))||{countries:{},players:{}};}catch(e){return{countries:{},players:{}};}}
 function crSaveScores(s){try{localStorage.setItem('CR_SCORES',JSON.stringify(s));}catch(e){}}
-function crAddPoints(playerName,country,flag,points){
+function crAddPoints(playerName,country,flag,points,countryCode){
   if(!playerName||!country||points<=0)return;
   const s=crLoadScores();
-  if(!s.players[playerName])s.players[playerName]={country,flag,pts:0};
+  if(!s.players[playerName])s.players[playerName]={country,flag,pts:0,countries:{}};
+  if(!s.players[playerName].countries)s.players[playerName].countries={};
   s.players[playerName].pts+=points;
+  s.players[playerName].countries[country]=(s.players[playerName].countries[country]||0)+points;
   if(!s.countries[country])s.countries[country]=0;
   s.countries[country]+=points;
   crSaveScores(s);
   crRefreshGrid();
+  // Also persist to Supabase if logged in
+  if(sb&&CR_USER){
+    const fc=countryCode||CR_USER.country_code||'';
+    sb.from('user_scores').insert({user_id:CR_USER.id,game_type:'quiz',points,country_code:fc}).then(()=>{});
+  }
 }
 
 function crGetCountryPts(teamName){const s=crLoadScores();return s.countries[teamName]||0;}
@@ -1689,6 +1895,18 @@ function qGoMode(){
 }
 
 function qStartSolo(){
+  // If user logged in, offer flag picker before starting
+  if(CR_USER){
+    openFlagPicker(country=>{
+      if(country){
+        QPLAYER.country=country.name;QPLAYER.flag=`https://flagcdn.com/w40/${country.fc}.png`;
+        QPLAYER.fc=country.fc;
+      }
+      _qDoStartSolo();
+    });
+  }else{_qDoStartSolo();}
+}
+function _qDoStartSolo(){
   QSOLO=true;QMY_SCORE=0;QQ_ANS=[];
   const all=Array.from({length:QQ.length},(_,i)=>i);
   for(let i=all.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[all[i],all[j]]=[all[j],all[i]];}
@@ -2129,6 +2347,161 @@ async function sendChatMsg(){
   try{
     await sb.from('chat_messages').insert({user_id:CR_USER.id,nickname:CR_USER.nickname||CR_USER.email,country_code:CR_USER.country_code||'',message:raw});
   }catch(e){}
+}
+
+// ── SIDEBAR HELPER ───────────────────────────────────────────────────
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+  document.body.style.overflow='';
+  document.getElementById('sb-toggle').classList.remove('active');
+}
+
+// ── SETTINGS ─────────────────────────────────────────────────────────
+let CR_LANG=localStorage.getItem('CR_LANG')||'tr';
+function openSettings(){
+  document.getElementById('settings-modal').classList.remove('hidden');
+  setUiLang(CR_LANG,true);
+  updateNotifStatus();
+}
+function closeSettings(){document.getElementById('settings-modal').classList.add('hidden');}
+function setUiLang(lang,noSave){
+  CR_LANG=lang;
+  if(!noSave)localStorage.setItem('CR_LANG',lang);
+  document.getElementById('slang-tr').classList.toggle('on',lang==='tr');
+  document.getElementById('slang-en').classList.toggle('on',lang==='en');
+}
+function updateNotifStatus(){
+  const btn=document.getElementById('notif-btn');
+  const st=document.getElementById('notif-status');
+  if(!('Notification' in window)){st.textContent='Bu tarayıcı bildirimleri desteklemiyor.';btn.style.display='none';return;}
+  if(Notification.permission==='granted'){st.textContent='Bildirimler açık ✓';btn.style.display='none';}
+  else if(Notification.permission==='denied'){st.textContent='Bildirimler engellendi — tarayıcı ayarlarından açılabilir.';btn.style.display='none';}
+  else{st.textContent='Bildirimler kapalı';btn.style.display='';}
+}
+async function requestNotifPerms(){
+  const p=await Notification.requestPermission();
+  updateNotifStatus();
+}
+
+// ── LEADERBOARD ───────────────────────────────────────────────────────
+function openLeaderboard(){
+  document.getElementById('lb-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  renderLbBanner();
+  loadLeaderboard();
+}
+function closeLeaderboard(){
+  document.getElementById('lb-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function renderLbBanner(){
+  const s=crLoadScores();
+  const flagsEl=document.getElementById('lb-banner-flags');
+  // Determine which countries this user has scored in (from localStorage)
+  let myCountries={};
+  if(CR_USER&&CR_USER.nickname){
+    const p=s.players[CR_USER.nickname];
+    if(p&&p.countries)myCountries=p.countries;
+    else if(p&&p.country)myCountries={[p.country]:p.pts};
+  }else{
+    // No login: show all country scores from localStorage as contribution
+    myCountries=s.countries;
+  }
+  const entries=Object.entries(myCountries).sort((a,b)=>b[1]-a[1]);
+  if(!entries.length){flagsEl.innerHTML='<div class="lb-banner-empty">Henüz puan kazanılmadı — quiz veya rush oyna!</div>';return;}
+  flagsEl.innerHTML='';
+  entries.forEach(([cname,pts])=>{
+    const t=TEAMS.find(x=>x.name===cname)||{fc:'',name:cname};
+    const chip=document.createElement('div');chip.className='lb-flag-chip';
+    chip.innerHTML=`${t.fc?`<img src="https://flagcdn.com/w80/${t.fc}.png" alt="${escHtml(cname)}">`:''}<div class="lb-flag-pts">${pts.toLocaleString('tr')}</div><div class="lb-flag-name">${escHtml(cname)}</div>`;
+    flagsEl.appendChild(chip);
+  });
+}
+async function loadLeaderboard(){
+  const countryEl=document.getElementById('lb-country-list');
+  const globalEl=document.getElementById('lb-global-list');
+  countryEl.innerHTML='<div class="lb-loading">Yükleniyor…</div>';
+  globalEl.innerHTML='<div class="lb-loading">Yükleniyor…</div>';
+
+  // Try Supabase first
+  if(sb){
+    try{
+      const[{data:profs},{data:scoreRows}]=await Promise.all([
+        sb.from('profiles').select('id,nickname,country_code,country_name'),
+        sb.from('user_scores').select('user_id,points')
+      ]);
+      if(profs&&scoreRows){
+        const userPts={};
+        scoreRows.forEach(r=>{userPts[r.user_id]=(userPts[r.user_id]||0)+r.points;});
+        const board=profs.map(p=>({...p,pts:userPts[p.id]||0})).sort((a,b)=>b.pts-a.pts);
+        const myCC=CR_USER?.country_code||'';
+        const countryBoard=myCC?board.filter(p=>p.country_code===myCC):board;
+        renderLbList(globalEl,board,true);
+        renderLbList(countryEl,countryBoard,false);
+        return;
+      }
+    }catch(e){}
+  }
+
+  // Fallback: localStorage
+  const s=crLoadScores();
+  const players=Object.entries(s.players).map(([n,d])=>({nickname:n,country_name:d.country,country_code:'',pts:d.pts})).sort((a,b)=>b.pts-a.pts);
+  const myCountry=CR_USER?.country_name||'';
+  const countryPlayers=myCountry?players.filter(p=>p.country_name===myCountry):players;
+  renderLbList(globalEl,players,true);
+  renderLbList(countryEl,countryPlayers,false);
+}
+function renderLbList(el,list,showFlag){
+  if(!list.length){el.innerHTML='<div class="lb-empty">Henüz kayıt yok.</div>';return;}
+  el.innerHTML='';
+  const medals=['🥇','🥈','🥉'];
+  const myId=CR_USER?.id;
+  const myNick=CR_USER?.nickname||'';
+  list.forEach((p,i)=>{
+    const rank=i+1;
+    const isMe=myId?(p.id===myId):(p.nickname===myNick);
+    const rankCls=rank===1?'gold':rank===2?'silver':rank===3?'bronze':'';
+    const rankTxt=medals[i]||(rank+'.');
+    const fc=(p.country_code||'').toLowerCase();
+    const row=document.createElement('div');row.className='lb-row'+(isMe?' me':'');
+    row.innerHTML=`<div class="lb-rank ${rankCls}">${rankTxt}</div>`+
+      (showFlag&&fc?`<img class="lb-flag-sm" src="https://flagcdn.com/w40/${fc}.png" alt="">`:'')+
+      `<div class="lb-nick">${escHtml(p.nickname||p.country_name||'?')}</div>`+
+      `<div class="lb-pts">${(p.pts||0).toLocaleString('tr')}</div>`;
+    el.appendChild(row);
+  });
+}
+
+// ── FLAG PICKER (pre-activity) ─────────────────────────────────────────
+let fpSelected=null;
+let fpCallback=null;
+function openFlagPicker(cb){
+  fpSelected=null;fpCallback=cb;
+  const grid=document.getElementById('fp-grid');
+  grid.innerHTML='';
+  TEAMS.forEach(t=>{
+    const el=document.createElement('div');el.className='fp-item';
+    el.innerHTML=`<img src="https://flagcdn.com/w40/${t.fc}.png" onerror="this.style.opacity='.3'" alt="${t.name}"><span>${t.name}</span>`;
+    el.addEventListener('click',()=>{
+      fpSelected=t;
+      grid.querySelectorAll('.fp-item').forEach(x=>x.classList.remove('sel'));
+      el.classList.add('sel');
+    });
+    grid.appendChild(el);
+  });
+  // Pre-select user's registered country
+  const myFc=CR_USER?.country_code||'';
+  if(myFc){
+    const idx=TEAMS.findIndex(t=>t.fc===myFc);
+    if(idx>=0){fpSelected=TEAMS[idx];grid.children[idx]?.classList.add('sel');}
+  }
+  document.getElementById('flag-picker').classList.add('open');
+}
+function fpConfirm(sel){
+  document.getElementById('flag-picker').classList.remove('open');
+  const country=sel||CR_USER&&{fc:CR_USER.country_code,name:CR_USER.country_name,code:CR_USER.country_code}||null;
+  if(fpCallback)fpCallback(country);
 }
 
 document.getElementById('ed-reset').addEventListener('click', () => {
