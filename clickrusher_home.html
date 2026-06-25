@@ -301,6 +301,99 @@ header{
   cursor:pointer;text-decoration:underline;transition:color .15s;}
 .forgot-link:hover{color:var(--cyan);}
 
+/* ── QUIZ EXIT MODAL ── */
+.q-exit-btn{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);color:var(--dim2);
+  font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .18s;z-index:5;}
+.q-exit-btn:hover{background:rgba(255,60,60,.2);border-color:rgba(255,60,60,.5);color:#ff6060;}
+.q-exit-overlay{position:absolute;inset:0;background:rgba(0,0,9,.88);z-index:50;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);border-radius:inherit;gap:12px;}
+.q-exit-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;
+  color:#fff;letter-spacing:2px;text-align:center;}
+.q-exit-warn{font-size:13px;color:#ff6060;font-weight:700;text-align:center;
+  background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.3);
+  border-radius:8px;padding:10px 20px;}
+.q-exit-countdown{font-family:'Barlow Condensed',sans-serif;font-size:12px;
+  color:var(--dim);letter-spacing:2px;}
+.q-exit-btns{display:flex;gap:10px;margin-top:4px;}
+.q-exit-yes{padding:10px 28px;border:2px solid rgba(255,60,60,.6);border-radius:8px;
+  background:rgba(255,60,60,.15);color:#ff6060;font-family:'Barlow Condensed',sans-serif;
+  font-size:15px;font-weight:900;letter-spacing:2px;cursor:pointer;transition:all .15s;}
+.q-exit-yes:hover{background:rgba(255,60,60,.35);}
+.q-exit-no{padding:10px 28px;border:2px solid rgba(0,200,255,.4);border-radius:8px;
+  background:rgba(0,200,255,.08);color:var(--cyan);font-family:'Barlow Condensed',sans-serif;
+  font-size:15px;font-weight:900;letter-spacing:2px;cursor:pointer;transition:all .15s;}
+.q-exit-no:hover{background:rgba(0,200,255,.2);}
+
+/* ── GK MATCH BAR ── */
+.gk-match-bar{width:100%;overflow-x:auto;padding:10px 12px 6px;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.gk-match-bar::-webkit-scrollbar{display:none;}
+.gk-match-bar-inner{display:flex;gap:8px;min-width:max-content;}
+.gk-mbar-card{background:rgba(4,12,30,.85);border:1px solid rgba(0,200,255,.1);
+  border-radius:10px;padding:8px 14px;display:flex;align-items:center;gap:8px;
+  cursor:pointer;transition:border-color .2s;white-space:nowrap;}
+.gk-mbar-card:hover,.gk-mbar-card.active{border-color:rgba(0,200,255,.5);}
+.gk-mbar-card.active{background:rgba(0,200,255,.08);}
+.gk-mbar-flags{display:flex;align-items:center;gap:3px;}
+.gk-mbar-flag{width:22px;height:15px;object-fit:cover;border-radius:2px;}
+.gk-mbar-sep{font-size:9px;color:var(--dim);}
+.gk-mbar-time{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;
+  color:var(--cyan);letter-spacing:1px;}
+.gk-mbar-time.live{color:#ff4444;animation:blink .8s ease-in-out infinite;}
+.gk-mbar-label{font-size:8px;letter-spacing:1px;color:var(--dim);text-transform:uppercase;}
+
+/* ── GK MAIN BATTLE ── */
+.gk-main-layout{display:grid;grid-template-columns:1fr 320px;gap:0;
+  min-height:340px;max-width:900px;margin:0 auto;}
+@media(max-width:680px){.gk-main-layout{grid-template-columns:1fr;}}
+.gk-battle-main{padding:20px 16px 0;display:flex;flex-direction:column;align-items:center;}
+.gk-teams-row{display:flex;align-items:center;justify-content:center;gap:0;width:100%;}
+.gk-team-col{display:flex;flex-direction:column;align-items:center;gap:10px;flex:1;}
+.gk-team-circle{position:relative;width:130px;height:130px;}
+@media(max-width:500px){.gk-team-circle{width:100px;height:100px;}}
+.gk-circle-ring{width:100%;height:100%;border-radius:50%;padding:5px;transition:background .3s;}
+.gk-circle-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;background:#050e20;}
+.gk-circle-inner img{width:100%;height:100%;object-fit:cover;
+  transition:filter .4s,transform .3s;filter:saturate(.25) brightness(.5);}
+.gk-team-count-badge{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:900;
+  color:#fff;background:#0a1628;border:1.5px solid rgba(0,200,255,.2);border-radius:20px;
+  padding:3px 14px;letter-spacing:1px;}
+.gk-team-name-lbl{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;
+  letter-spacing:2px;color:#fff;text-align:center;text-transform:uppercase;}
+.gk-vs-center{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;padding:0 14px;min-width:100px;}
+.gk-vs-swords{font-size:28px;filter:drop-shadow(0 0 8px rgba(255,200,0,.6));}
+.gk-vs-text{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;
+  color:var(--cyan);letter-spacing:3px;text-shadow:0 0 14px rgba(0,200,255,.8);}
+.gk-countdown{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
+  color:var(--dim);letter-spacing:1px;text-align:center;margin-top:2px;}
+.gk-countdown.live{color:#ff4444;font-size:12px;animation:blink .8s ease-in-out infinite;}
+.gk-rush-btn{padding:9px 24px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;
+  font-size:15px;font-weight:900;letter-spacing:2px;cursor:pointer;
+  border:2px solid rgba(0,200,255,.45);background:rgba(0,200,255,.1);
+  color:var(--cyan);transition:all .15s;position:relative;overflow:hidden;}
+.gk-rush-btn.away-style{border-color:rgba(255,60,60,.45);background:rgba(255,60,60,.1);color:#ff6060;}
+.gk-rush-btn:not(:disabled):hover{background:rgba(0,200,255,.25);}
+.gk-rush-btn.away-style:not(:disabled):hover{background:rgba(255,60,60,.25);}
+.gk-rush-btn:disabled{opacity:.35;cursor:not-allowed;animation:none!important;}
+.gk-rush-btn:not(:disabled){animation:cbPulseH 2.2s ease-in-out infinite;}
+.gk-rush-btn.away-style:not(:disabled){animation:cbPulseA 2.2s ease-in-out infinite;}
+.gk-lock-msg{font-family:'Barlow Condensed',sans-serif;font-size:10px;
+  color:var(--dim);letter-spacing:1.5px;text-align:center;margin-top:4px;}
+.gk-full-bar{width:100%;height:12px;background:rgba(255,255,255,.05);border-radius:6px;
+  overflow:hidden;margin:16px 0 0;position:relative;}
+.gk-full-bar-fill{height:100%;background:linear-gradient(90deg,var(--cyan),#0088cc);
+  border-radius:6px;transition:width .6s ease;position:absolute;left:0;}
+.gk-full-bar-away{height:100%;background:linear-gradient(90deg,#cc2222,#ff4444);
+  border-radius:6px;transition:width .6s ease;position:absolute;right:0;}
+.gk-bar-pcts{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;color:var(--dim);letter-spacing:1px;padding:3px 0 12px;}
+.gk-chat-panel{background:rgba(4,12,30,.7);border-left:1px solid rgba(0,200,255,.1);
+  display:flex;flex-direction:column;height:100%;min-height:360px;}
+
 /* ── RUSH GAME ── */
 #panel-rush{padding:0;position:relative;}
 .rush-lobby{display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -994,82 +1087,96 @@ header{
 <!-- GÜNÜN KAPIŞMASI -->
 <div id="panel-gun">
 
-  <!-- Match card -->
-  <div class="gk-match-card">
-    <div class="gk-badge" id="gk-badge">GÜNÜN MAÇI</div>
-    <div class="gk-teams" id="gk-teams">
-      <div class="gk-no-match">Maç verisi yükleniyor…</div>
-    </div>
-    <div class="gk-meta" id="gk-meta"></div>
-  </div>
-
-  <!-- Click Battle -->
-  <div class="gk-battle-wrap">
-    <div class="gk-battle-title">⚔ TIKLAMA KAPIŞMASI ⚔</div>
-    <div class="gk-battle-grid">
-      <div class="gk-battle-team">
-        <div class="gk-charge-wrap side-home" id="cb-home-wrap">
-          <div class="gk-charge-ring" id="cb-home-ring">
-            <div class="gk-charge-inner">
-              <img id="cb-home-flag" src="https://flagcdn.com/w80/xx.png" alt="">
-            </div>
-          </div>
-          <div class="gk-charge-pulse"></div>
-        </div>
-        <div class="gk-battle-count" id="cb-home-cnt">0</div>
-        <div class="gk-battle-clabel">TOPLAM DESTEK</div>
-        <button class="cb-btn home-btn" onclick="cbClick('home',event)">⚡ DESTEKLE!</button>
-      </div>
-      <div class="gk-tow-col">
-        <div class="gk-tow-vs">VS</div>
-        <div class="gk-tow-bar-h">
-          <div class="gk-tow-home-fill" id="cb-tow-home" style="width:50%"></div>
-          <div class="gk-tow-away-fill" id="cb-tow-away" style="width:50%"></div>
-        </div>
-        <div class="gk-tow-pcts"><span id="cb-home-pct">50%</span> · <span id="cb-away-pct">50%</span></div>
-      </div>
-      <div class="gk-battle-team">
-        <div class="gk-charge-wrap side-away" id="cb-away-wrap">
-          <div class="gk-charge-ring" id="cb-away-ring">
-            <div class="gk-charge-inner">
-              <img id="cb-away-flag" src="https://flagcdn.com/w80/xx.png" alt="">
-            </div>
-          </div>
-          <div class="gk-charge-pulse"></div>
-        </div>
-        <div class="gk-battle-count" id="cb-away-cnt">0</div>
-        <div class="gk-battle-clabel">TOPLAM DESTEK</div>
-        <button class="cb-btn away-btn" onclick="cbClick('away',event)">🔥 DESTEKLE!</button>
-      </div>
+  <!-- Upcoming matches bar -->
+  <div class="gk-match-bar">
+    <div class="gk-match-bar-inner" id="gk-match-bar-inner">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;color:var(--dim);padding:4px 6px;white-space:nowrap;align-self:center;">SIRADAKİ MAÇLAR</div>
     </div>
   </div>
 
-  <!-- Bottom row: prediction + chat -->
-  <div class="gk-bottom-row">
-    <div class="gk-pred-box">
-      <div class="gk-pred-title">⚽ SKOR TAHMİNİ</div>
-      <div class="pred-teams-row">
-        <span id="pred-home-name">EV SAHİBİ</span>
-        <span>vs</span>
-        <span id="pred-away-name">DEPLASMAN</span>
+  <!-- Main layout: battle + chat -->
+  <div class="gk-main-layout">
+
+    <!-- Battle area -->
+    <div class="gk-battle-main">
+      <div class="gk-teams-row">
+
+        <!-- Home team -->
+        <div class="gk-team-col">
+          <div class="gk-team-circle" id="cb-home-wrap">
+            <div class="gk-circle-ring" id="cb-home-ring">
+              <div class="gk-circle-inner">
+                <img id="cb-home-flag" src="https://flagcdn.com/w160/xx.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="gk-team-count-badge" id="cb-home-cnt">0</div>
+          <div class="gk-team-name-lbl" id="cb-home-name">—</div>
+          <button class="gk-rush-btn" id="cb-home-btn" onclick="cbClick('home',event)" disabled>⚡ RUSH</button>
+          <div class="gk-lock-msg" id="cb-home-lock">Maç başlamadan katılamazsın</div>
+        </div>
+
+        <!-- VS center -->
+        <div class="gk-vs-center">
+          <div class="gk-vs-swords">⚔️</div>
+          <div class="gk-vs-text">VS</div>
+          <div class="gk-countdown" id="gk-countdown">—</div>
+        </div>
+
+        <!-- Away team -->
+        <div class="gk-team-col">
+          <div class="gk-team-circle" id="cb-away-wrap">
+            <div class="gk-circle-ring" id="cb-away-ring">
+              <div class="gk-circle-inner">
+                <img id="cb-away-flag" src="https://flagcdn.com/w160/xx.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="gk-team-count-badge" id="cb-away-cnt">0</div>
+          <div class="gk-team-name-lbl" id="cb-away-name">—</div>
+          <button class="gk-rush-btn away-style" id="cb-away-btn" onclick="cbClick('away',event)" disabled>🔥 RUSH</button>
+          <div class="gk-lock-msg" id="cb-away-lock">Maç başlamadan katılamazsın</div>
+        </div>
       </div>
-      <div class="pred-score-row">
-        <input type="number" class="pred-score-inp" id="pred-home-score" min="0" max="20" value="0">
-        <span class="pred-sep">:</span>
-        <input type="number" class="pred-score-inp" id="pred-away-score" min="0" max="20" value="0">
+
+      <!-- Progress bar -->
+      <div class="gk-full-bar">
+        <div class="gk-full-bar-fill" id="cb-tow-home" style="width:50%"></div>
+        <div class="gk-full-bar-away" id="cb-tow-away" style="width:50%"></div>
       </div>
-      <button class="pred-submit-btn" id="pred-submit-btn" onclick="submitPrediction()">TAHMİNİ GÖNDER</button>
-      <div class="pred-locked-msg" id="pred-locked-msg">✓ TAHMİNİNİZ KAYDEDİLDİ</div>
+      <div class="gk-bar-pcts">
+        <span id="cb-home-pct">50%</span>
+        <span id="cb-away-pct">50%</span>
+      </div>
+
+      <!-- Score prediction -->
+      <div class="gk-pred-box" style="width:100%;margin-bottom:16px;">
+        <div class="gk-pred-title">⚽ SKOR TAHMİNİ</div>
+        <div class="pred-teams-row">
+          <span id="pred-home-name">EV SAHİBİ</span>
+          <span>vs</span>
+          <span id="pred-away-name">DEPLASMAN</span>
+        </div>
+        <div class="pred-score-row">
+          <input type="number" class="pred-score-inp" id="pred-home-score" min="0" max="20" value="0">
+          <span class="pred-sep">:</span>
+          <input type="number" class="pred-score-inp" id="pred-away-score" min="0" max="20" value="0">
+        </div>
+        <button class="pred-submit-btn" id="pred-submit-btn" onclick="submitPrediction()">TAHMİNİ GÖNDER</button>
+        <div class="pred-locked-msg" id="pred-locked-msg">✓ TAHMİNİNİZ KAYDEDİLDİ</div>
+      </div>
     </div>
-    <div class="gk-chat">
+
+    <!-- Chat panel -->
+    <div class="gk-chat-panel">
       <div class="gk-chat-hdr"><div class="chat-dot"></div>CANLI SOHBET</div>
-      <div id="chat-msgs"></div>
+      <div id="chat-msgs" style="flex:1;overflow-y:auto;"></div>
       <div id="chat-input-wrap">
         <div class="chat-login-hint">Sohbet için <span onclick="openAuthModal()">giriş yap</span></div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>
 
 <div id="panel-rush">
@@ -1107,8 +1214,8 @@ header{
     <div style="font-size:3.5rem;margin-bottom:16px">⚽</div>
     <h1 style="font-size:2.2rem;font-weight:900;margin-bottom:6px">ClickRusher</h1>
     <p style="font-size:1.3rem;font-weight:700;opacity:.8;margin-bottom:30px">QUIZ</p>
-    <button class="qbtn qbtn-outline" style="max-width:280px;font-size:1.1rem" onclick="qSetLang('tr')">🇹🇷 &nbsp; Türkçe</button>
-    <button class="qbtn qbtn-outline" style="max-width:280px;font-size:1.1rem;margin-top:12px" onclick="qSetLang('en')">🇬🇧 &nbsp; English</button>
+    <button class="qbtn qbtn-outline" style="max-width:280px;font-size:1.1rem;display:flex;align-items:center;justify-content:center;gap:10px" onclick="qSetLang('tr')"><img src="https://flagcdn.com/w40/tr.png" style="width:32px;height:22px;object-fit:cover;border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,.4)" alt="TR"> Türkçe</button>
+    <button class="qbtn qbtn-outline" style="max-width:280px;font-size:1.1rem;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:10px" onclick="qSetLang('en')"><img src="https://flagcdn.com/w40/gb.png" style="width:32px;height:22px;object-fit:cover;border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,.4)" alt="GB"> English</button>
   </div>
 
   <!-- ── ÜLKE SEÇ ── -->
@@ -1201,7 +1308,17 @@ header{
   </div>
 
   <!-- ── SORU EKRANI ── -->
-  <div id="qscr" class="screen">
+  <div id="qscr" class="screen" style="position:relative;">
+    <button class="q-exit-btn" onclick="qAskExit()" title="Yarışmadan çık">✕</button>
+    <div id="q-exit-overlay" class="q-exit-overlay" style="display:none;">
+      <div class="q-exit-title">YARIŞMAYI BIRAK?</div>
+      <div class="q-exit-warn">⚠️ Çıkarsan <strong>-100 puan</strong> ceza alacaksın!</div>
+      <div class="q-exit-countdown" id="q-exit-cd">Yanıt vermezsen <span id="q-exit-sec">3</span>s sonra devam eder</div>
+      <div class="q-exit-btns">
+        <button class="q-exit-yes" onclick="qConfirmExit()">EVET, ÇIK</button>
+        <button class="q-exit-no" onclick="qCancelExit()">HAYIR, DEVAM</button>
+      </div>
+    </div>
     <div class="qwrap">
       <div class="qmeta">
         <span id="qqnum"></span>
@@ -2417,6 +2534,43 @@ function qStartTimer(){
 }
 function qStopTimer(){clearInterval(QTIMER);QTIMER=null;}
 
+// ── QUIZ EXIT ────────────────────────────────────────────────────────
+let qExitCdInterval=null;
+function qAskExit(){
+  if(!document.getElementById('qscr').classList.contains('active'))return;
+  qStopTimer();
+  const ov=document.getElementById('q-exit-overlay');
+  if(ov)ov.style.display='flex';
+  let sec=3;
+  document.getElementById('q-exit-sec').textContent=sec;
+  qExitCdInterval=setInterval(()=>{
+    sec--;
+    const el=document.getElementById('q-exit-sec');
+    if(el)el.textContent=sec;
+    if(sec<=0){clearInterval(qExitCdInterval);qCancelExit();}
+  },1000);
+}
+function qCancelExit(){
+  clearInterval(qExitCdInterval);
+  const ov=document.getElementById('q-exit-overlay');
+  if(ov)ov.style.display='none';
+  // Resume timer
+  QQ_ST=Date.now()-(10000-(parseFloat(document.getElementById('qtnum').textContent)||0)*1000);
+  qStartTimer();
+}
+function qConfirmExit(){
+  clearInterval(qExitCdInterval);
+  const ov=document.getElementById('q-exit-overlay');
+  if(ov)ov.style.display='none';
+  // Apply -100 penalty
+  QMY_SCORE=Math.max(0,QMY_SCORE-100);
+  const player=QPLAYER;
+  if(player&&player.name){
+    crAddPoints(player.name,player.country||'—',player.flag||'',Math.max(0,QMY_SCORE),player.fc||'');
+  }
+  qShowScreen('qsel');
+}
+
 function qOnAnswer(idx,btn){
   if(QANSWERED)return;QANSWERED=true;
   const elapsed=Date.now()-QQ_ST;const qObj=QQ[QQ_IDXS[QQ_CUR]];const correct=idx===qObj.ans;
@@ -2919,44 +3073,55 @@ function getNextMatch(){
   return null;
 }
 function renderNextMatch(){
-  const badge=document.getElementById('gk-badge');
-  const teamsEl=document.getElementById('gk-teams');
-  const metaEl=document.getElementById('gk-meta');
-  if(!badge||!teamsEl)return;
   const m=getNextMatch();
+  gkRenderMatchBar();
   if(!m||(!Object.keys(wcTeams).length&&!wcGames.length)){
-    badge.textContent='GÜNÜN MAÇI';
-    teamsEl.innerHTML='<div class="gk-no-match">Henüz fikstür açıklanmadı.</div>';
-    if(metaEl)metaEl.textContent='';
+    const cdEl=document.getElementById('gk-countdown');
+    if(cdEl)cdEl.textContent='Fikstür bekleniyor…';
     return;
   }
   const{game:g,status}=m;
-  const hFUrl=escHtml(getWCFlag(g.home_team_id)),aFUrl=escHtml(getWCFlag(g.away_team_id));
-  const hN=escHtml(getWCName(g.home_team_id)),aN=escHtml(getWCName(g.away_team_id));
   const hCC=(wcTeams[g.home_team_id]?.iso2||'').toLowerCase();
   const aCC=(wcTeams[g.away_team_id]?.iso2||'').toLowerCase();
-  const teamTpl=(f,n)=>`<div class="gk-team"><div class="gk-flag"><img src="${f}" alt="${n}" onerror="this.style.opacity='.3'"></div><div class="gk-team-name">${n}</div></div>`;
-  if(status==='live'){
-    badge.innerHTML=`<span class="gk-live-badge">● CANLI</span> ${escHtml(g.time_elapsed)}'`;
-    teamsEl.innerHTML=teamTpl(hFUrl,hN)+`<div class="gk-vs"><div class="gk-score live-score">${g.home_score??0} – ${g.away_score??0}</div></div>`+teamTpl(aFUrl,aN);
-    if(metaEl)metaEl.textContent='Canlı yayın devam ediyor';
-  }else if(status==='upcoming'){
-    badge.textContent='GÜNÜN MAÇI';
-    const d=new Date(g.date||g.local_date);
-    const ds=d.toLocaleDateString('tr-TR',{day:'2-digit',month:'long',year:'numeric'});
-    const ts=d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
-    teamsEl.innerHTML=teamTpl(hFUrl,hN)+`<div class="gk-vs"><div class="gk-vs-txt">VS</div></div>`+teamTpl(aFUrl,aN);
-    if(metaEl)metaEl.textContent=ds+' • '+ts+(g.group?' • Grup '+g.group:'');
-  }else{
-    badge.textContent='SON MAÇ';
-    teamsEl.innerHTML=teamTpl(hFUrl,hN)+`<div class="gk-vs"><div class="gk-score">${g.home_score??0} – ${g.away_score??0}</div></div>`+teamTpl(aFUrl,aN);
-    if(metaEl)metaEl.textContent='Maç sona erdi';
-  }
-  // wire click battle + score prediction
-  const matchId=String(g.id||g.home_team_id+'_'+g.away_team_id);
   const hFlag=`https://flagcdn.com/w160/${hCC||'xx'}.png`;
   const aFlag=`https://flagcdn.com/w160/${aCC||'xx'}.png`;
-  cbSetupMatch(matchId,hCC,aCC,hFlag,aFlag,getWCName(g.home_team_id),getWCName(g.away_team_id));
+  const matchDate=g.date||g.local_date;
+  const matchId=String(g.id||g.home_team_id+'_'+g.away_team_id);
+  cbSetupMatch(matchId,hCC,aCC,hFlag,aFlag,getWCName(g.home_team_id),getWCName(g.away_team_id),matchDate,status==='live');
+}
+
+function gkRenderMatchBar(){
+  const inner=document.getElementById('gk-match-bar-inner');
+  if(!inner||!wcGames.length)return;
+  const now=Date.now();
+  const sorted=wcGames.slice().sort((a,b)=>new Date(a.date||a.local_date)-new Date(b.date||b.local_date));
+  const shown=sorted.filter(g=>{
+    const t=new Date(g.date||g.local_date).getTime();
+    return t>now-2*60*60*1000;
+  }).slice(0,12);
+  if(!shown.length)return;
+  inner.innerHTML='<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:9px;letter-spacing:3px;color:var(--dim);padding:4px 6px;white-space:nowrap;align-self:center;">SIRADAKİ MAÇLAR</div>';
+  const m=getNextMatch();
+  const activeId=m?String(m.game.id||m.game.home_team_id+'_'+m.game.away_team_id):'';
+  shown.forEach(g=>{
+    const hCC=(wcTeams[g.home_team_id]?.iso2||'xx').toLowerCase();
+    const aCC=(wcTeams[g.away_team_id]?.iso2||'xx').toLowerCase();
+    const isLive=wcIsLive(g);
+    const t=new Date(g.date||g.local_date);
+    const timeStr=t.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    const gId=String(g.id||g.home_team_id+'_'+g.away_team_id);
+    const card=document.createElement('div');
+    card.className='gk-mbar-card'+(gId===activeId?' active':'');
+    card.innerHTML=`<div class="gk-mbar-flags"><img class="gk-mbar-flag" src="https://flagcdn.com/w40/${hCC}.png" alt=""><span class="gk-mbar-sep">-</span><img class="gk-mbar-flag" src="https://flagcdn.com/w40/${aCC}.png" alt=""></div><div class="gk-mbar-time${isLive?' live':''}">${isLive?'🔴 CANLI':timeStr}</div>`;
+    card.onclick=()=>{
+      const matchDate=g.date||g.local_date;
+      const matchId=gId;
+      cbSetupMatch(matchId,hCC,aCC,`https://flagcdn.com/w160/${hCC}.png`,`https://flagcdn.com/w160/${aCC}.png`,getWCName(g.home_team_id),getWCName(g.away_team_id),matchDate,isLive);
+      inner.querySelectorAll('.gk-mbar-card').forEach(c=>c.classList.remove('active'));
+      card.classList.add('active');
+    };
+    inner.appendChild(card);
+  });
 }
 
 // ── CLICK BATTLE ─────────────────────────────────────────────────────
@@ -2967,10 +3132,12 @@ let cbSyncTimeout=null;
 let predMatchId=null;
 let cbRealtimeChannel=null;
 
-function cbSetupMatch(matchId,homeCC,awayCC,homeFlag,awayFlag,homeName,awayName){
+let cbMatchTime=null,cbCountdownInterval=null;
+
+function cbSetupMatch(matchId,homeCC,awayCC,homeFlag,awayFlag,homeName,awayName,matchDate,isLive){
   cbMatchId=matchId;
   predMatchId=matchId;
-  // Realtime subscription for live click counts
+  cbMatchTime=matchDate?new Date(matchDate):null;
   if(cbRealtimeChannel){try{cbRealtimeChannel.unsubscribe();}catch(e){}}
   if(sb){
     cbRealtimeChannel=sb.channel('cb:'+matchId)
@@ -2980,8 +3147,12 @@ function cbSetupMatch(matchId,homeCC,awayCC,homeFlag,awayFlag,homeName,awayName)
   }
   const hImg=document.getElementById('cb-home-flag');
   const aImg=document.getElementById('cb-away-flag');
-  if(hImg){hImg.src=homeFlag||`https://flagcdn.com/w80/${(homeCC||'xx').toLowerCase()}.png`;hImg.alt=homeName||homeCC||'';}
-  if(aImg){aImg.src=awayFlag||`https://flagcdn.com/w80/${(awayCC||'xx').toLowerCase()}.png`;aImg.alt=awayName||awayCC||'';}
+  const hName=document.getElementById('cb-home-name');
+  const aName=document.getElementById('cb-away-name');
+  if(hImg){hImg.src=homeFlag||`https://flagcdn.com/w160/${(homeCC||'xx').toLowerCase()}.png`;hImg.alt=homeName||homeCC||'';}
+  if(aImg){aImg.src=awayFlag||`https://flagcdn.com/w160/${(awayCC||'xx').toLowerCase()}.png`;aImg.alt=awayName||awayCC||'';}
+  if(hName)hName.textContent=homeName||homeCC||'—';
+  if(aName)aName.textContent=awayName||awayCC||'—';
   const pHN=document.getElementById('pred-home-name');
   const pAN=document.getElementById('pred-away-name');
   if(pHN)pHN.textContent=homeName||homeCC||'—';
@@ -2991,6 +3162,37 @@ function cbSetupMatch(matchId,homeCC,awayCC,homeFlag,awayFlag,homeName,awayName)
   cbSetCharge('away',0);
   cbLoadTotals();
   loadPrediction();
+  clearInterval(cbCountdownInterval);
+  cbUpdateLock(isLive);
+  if(!isLive&&cbMatchTime&&cbMatchTime>new Date()){
+    cbCountdownInterval=setInterval(()=>cbUpdateLock(false),1000);
+  }
+}
+
+function cbUpdateLock(isLive){
+  const now=new Date();
+  const locked=!isLive&&cbMatchTime&&cbMatchTime>now;
+  const hBtn=document.getElementById('cb-home-btn');
+  const aBtn=document.getElementById('cb-away-btn');
+  const hLock=document.getElementById('cb-home-lock');
+  const aLock=document.getElementById('cb-away-lock');
+  const cdEl=document.getElementById('gk-countdown');
+  if(hBtn)hBtn.disabled=locked;
+  if(aBtn)aBtn.disabled=locked;
+  if(hLock)hLock.style.display=locked?'':'none';
+  if(aLock)aLock.style.display=locked?'':'none';
+  if(cdEl){
+    if(isLive){cdEl.textContent='🔴 CANLI';cdEl.className='gk-countdown live';}
+    else if(locked&&cbMatchTime){
+      const diff=cbMatchTime-now;
+      const h=Math.floor(diff/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+      cdEl.textContent=`⏰ ${h>0?h+'sa ':''} ${m}dk ${s}sn kaldı`;
+      cdEl.className='gk-countdown';
+      if(diff<=0){clearInterval(cbCountdownInterval);cbUpdateLock(false);}
+    }else{
+      cdEl.textContent='YARIŞMA AKTIF';cdEl.className='gk-countdown';
+    }
+  }
 }
 
 function cbClick(side,e){
@@ -3034,16 +3236,15 @@ function cbSetCharge(side,pct){
   const ring=document.getElementById('cb-'+side+'-ring');
   if(!ring)return;
   const img=ring.querySelector('img');
-  const inner=ring.querySelector('.gk-charge-inner');
-  if(!img||!inner)return;
-  const sat=(0.3+pct*0.7).toFixed(2);
-  const bri=(0.55+pct*0.45).toFixed(2);
-  const sc=(1+pct*0.14).toFixed(3);
+  const inner=ring.querySelector('.gk-circle-inner')||ring.querySelector('.gk-charge-inner');
+  if(!img)return;
+  const sat=(0.25+pct*0.75).toFixed(2);
+  const bri=(0.5+pct*0.5).toFixed(2);
   img.style.filter=`saturate(${sat}) brightness(${bri})`;
-  inner.style.transform=`scale(${sc})`;
+  if(inner)inner.style.transform=`scale(${(1+pct*0.08).toFixed(3)})`;
   const deg=Math.round(pct*360);
-  const clr=side==='home'?`rgba(0,200,255,${(0.35+pct*0.65).toFixed(2)})`:`rgba(255,60,60,${(0.35+pct*0.65).toFixed(2)})`;
-  ring.style.background=`conic-gradient(${clr} ${deg}deg, rgba(255,255,255,.05) ${deg}deg)`;
+  const clr=side==='home'?`rgba(0,200,255,${(0.3+pct*0.7).toFixed(2)})`:`rgba(255,60,60,${(0.3+pct*0.7).toFixed(2)})`;
+  ring.style.background=`conic-gradient(${clr} ${deg}deg, rgba(255,255,255,.04) ${deg}deg)`;
 }
 
 async function cbLoadTotals(){
