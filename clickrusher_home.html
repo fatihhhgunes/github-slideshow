@@ -1931,7 +1931,7 @@ function resetAllScores(){
   alert('Yerel puanlar sıfırlandı! Diğer kullanıcıların verilerini Supabase SQL\'den sıfırla:\nTRUNCATE TABLE public.user_scores;');
 }
 function crSaveScores(s){try{localStorage.setItem('CR_SCORES',JSON.stringify(s));}catch(e){}}
-function crAddPoints(playerName,country,flag,points,countryCode){
+function crAddPoints(playerName,country,flag,points,countryCode,gameType){
   if(!playerName||!country||points<=0)return;
   const s=crLoadScores();
   if(!s.players[playerName])s.players[playerName]={country,flag,pts:0,countries:{}};
@@ -1942,10 +1942,9 @@ function crAddPoints(playerName,country,flag,points,countryCode){
   s.countries[country]+=points;
   crSaveScores(s);
   crRefreshGrid();
-  // Also persist to Supabase if logged in
   if(sb&&CR_USER){
     const fc=countryCode||CR_USER.country_code||'';
-    sb.from('user_scores').insert({user_id:CR_USER.id,game_type:'quiz',points,country_code:fc}).then(()=>{});
+    sb.from('user_scores').insert({user_id:CR_USER.id,game_type:gameType||'quiz',points,country_code:fc}).then(()=>{});
   }
 }
 
@@ -2660,7 +2659,7 @@ function qShowGameOver(players){
   document.getElementById('qt-over').textContent=qs('over');
   document.getElementById('qt-again').textContent=qs('again');
   // Award points to player and country
-  players.forEach(p=>{if(p.score>0&&p.name&&p.country)crAddPoints(p.name,p.country,p.flag||'🌍',p.score);});
+  players.forEach(p=>{if(p.score>0&&p.name&&p.country)crAddPoints(p.name,p.country,p.flag||'🌍',p.score,p.countryCode||'','quiz');});
   const sorted=[...players].sort((a,b)=>b.score-a.score);
   const medals=['🥇','🥈','🥉'];
   const podiumEl=document.getElementById('qpodium');const listEl=document.getElementById('qflist');
@@ -2804,8 +2803,36 @@ async function syncGuestScores(userId,countryCode){
   for(const[country,pts] of Object.entries(s.countries||{})){
     if(pts>0)entries.push({user_id:userId,game_type:'quiz',points:pts,country_code:countryCode||''});
   }
-  if(!entries.length)return;
-  try{await sb.from('user_scores').insert(entries);}catch(e){}
+  if(entries.length){
+    try{await sb.from('user_scores').insert(entries);}catch(e){}
+  }
+}
+
+async function mergeSupabaseScores(profile){
+  if(!sb||!CR_USER)return;
+  try{
+    const{data}=await sb.from('user_scores').select('points').eq('user_id',CR_USER.id);
+    if(!data||!data.length)return;
+    const totalPts=data.reduce((s,r)=>s+(r.points||0),0);
+    if(totalPts<=0)return;
+    const country=profile.country_name||'';
+    const countryCode=(profile.country_code||'').toLowerCase();
+    const pName=profile.nickname||profile.email||CR_USER.email||'Kullanıcı';
+    if(!country)return;
+    const s=crLoadScores();
+    const localPts=s.players[pName]?.pts||0;
+    if(totalPts>localPts){
+      const diff=totalPts-localPts;
+      if(!s.players[pName])s.players[pName]={country,flag:countryCode,pts:0,countries:{}};
+      s.players[pName].pts=totalPts;
+      if(!s.players[pName].countries)s.players[pName].countries={};
+      s.players[pName].countries[country]=(s.players[pName].countries[country]||0)+diff;
+      if(!s.countries[country])s.countries[country]=0;
+      s.countries[country]+=diff;
+      crSaveScores(s);
+      crRefreshGrid();
+    }
+  }catch(e){}
 }
 
 if(sb){
@@ -2817,6 +2844,7 @@ if(sb){
         CR_USER={id:uid,email:session.user.email,...(prof||{})};
         if(event==='SIGNED_IN'){
           syncGuestScores(uid,CR_USER.country_code||'');
+          mergeSupabaseScores(prof||{});
           scheduleMatchNotifications();
         }
       }else{
@@ -3049,9 +3077,11 @@ function rushEnd(){
   if(field)field.querySelectorAll('.rush-target').forEach(el=>el.remove());
   const best=Math.max(rushBestScore(),rushScore);
   localStorage.setItem('CR_RUSH_BEST',String(best));
-  if(sb&&CR_USER){
-    sb.from('user_scores').insert({user_id:CR_USER.id,game_type:'rush',points:rushScore,country_code:CR_USER.country_code||''}).then(()=>{});
-    crAddPoints(CR_USER.nickname||CR_USER.email,'Rush','⚡',rushScore,CR_USER.country_code||'');
+  if(rushScore>0){
+    const rName=CR_USER?(CR_USER.nickname||CR_USER.email):(typeof QPLAYER!=='undefined'&&QPLAYER?.name)||'Misafir';
+    const rCountry=CR_USER?.country_name||(typeof QPLAYER!=='undefined'&&QPLAYER?.country)||'Dünya';
+    const rCC=CR_USER?.country_code||(typeof QPLAYER!=='undefined'&&QPLAYER?.countryCode)||'';
+    crAddPoints(rName,rCountry,'⚡',rushScore,rCC,'rush');
   }
   const endDiv=document.createElement('div');
   endDiv.className='rush-end-overlay';
@@ -3179,6 +3209,7 @@ let cbMatchId=null;
 let cbSyncTimeout=null;
 let predMatchId=null;
 let cbRealtimeChannel=null;
+let cbPendingPoints=0;
 
 let cbMatchTime=null,cbCountdownInterval=null;
 
@@ -3253,6 +3284,7 @@ function cbClick(side,e){
   const wrap=document.getElementById('cb-'+side+'-wrap');
   if(wrap){const f=document.createElement('div');f.className='gk-click-flash';wrap.appendChild(f);setTimeout(()=>f.remove(),280);}
   cbCounts[side]++;
+  cbPendingPoints+=2;
   updateCbUI();
   clearTimeout(cbSyncTimeout);
   cbSyncTimeout=setTimeout(()=>cbSync(),1200);
@@ -3307,10 +3339,20 @@ async function cbLoadTotals(){
 }
 
 async function cbSync(){
-  if(!sb||!cbMatchId)return;
+  if(!cbMatchId)return;
   const toSync={...cbCounts};
-  if(!toSync.home&&!toSync.away)return;
+  const pts=cbPendingPoints;
   cbCounts={home:0,away:0};
+  cbPendingPoints=0;
+  // Award points for clicks (2 pts/click)
+  if(pts>0){
+    const cbName=CR_USER?(CR_USER.nickname||CR_USER.email):(typeof QPLAYER!=='undefined'&&QPLAYER?.name)||'Misafir';
+    const cbCountry=CR_USER?.country_name||(typeof QPLAYER!=='undefined'&&QPLAYER?.country)||'Dünya';
+    const cbCC=CR_USER?.country_code||'';
+    crAddPoints(cbName,cbCountry,'⚔️',pts,cbCC,'click_battle');
+  }
+  if(!sb)return;
+  if(!toSync.home&&!toSync.away)return;
   const userId=CR_USER?CR_USER.id:null;
   for(const side of['home','away']){
     if(!toSync[side])continue;
