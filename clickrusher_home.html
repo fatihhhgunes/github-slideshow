@@ -301,7 +301,99 @@ header{
   cursor:pointer;text-decoration:underline;transition:color .15s;}
 .forgot-link:hover{color:var(--cyan);}
 
-/* ── GÜNÜN KAPIŞMASI ── */
+/* ── CLICK BATTLE ── */
+.gk-battle-wrap{max-width:720px;margin:0 auto 16px;
+  background:rgba(4,10,28,.85);border:1.5px solid rgba(0,200,255,.16);
+  border-radius:16px;padding:18px 16px 20px;}
+.gk-battle-title{text-align:center;font-family:'Barlow Condensed',sans-serif;
+  font-size:11px;font-weight:800;letter-spacing:4px;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:16px;
+  text-shadow:0 0 14px rgba(0,200,255,.6);}
+.gk-battle-grid{display:grid;grid-template-columns:1fr 56px 1fr;gap:8px;align-items:center;}
+.gk-battle-team{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.gk-charge-wrap{position:relative;width:106px;height:106px;cursor:pointer;}
+.gk-charge-ring{width:100%;height:100%;border-radius:50%;padding:5px;
+  transition:background .25s;position:relative;}
+.gk-charge-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;
+  background:#060d1e;transition:transform .2s;}
+.gk-charge-inner img{width:100%;height:100%;object-fit:cover;
+  transition:filter .3s,transform .3s;filter:saturate(.3) brightness(.55);}
+.gk-charge-pulse{position:absolute;inset:-4px;border-radius:50%;opacity:0;
+  animation:chargePulse 1.8s ease-in-out infinite;}
+@keyframes chargePulse{0%,100%{transform:scale(1);opacity:0;}
+  50%{transform:scale(1.08);opacity:.4;}}
+.gk-charge-wrap.side-home .gk-charge-pulse{background:radial-gradient(circle,rgba(0,200,255,.5),transparent 70%);}
+.gk-charge-wrap.side-away .gk-charge-pulse{background:radial-gradient(circle,rgba(255,70,70,.5),transparent 70%);}
+.gk-click-flash{position:absolute;inset:0;border-radius:50%;background:rgba(255,255,255,.3);
+  opacity:0;pointer-events:none;animation:flashIn .25s ease forwards;}
+@keyframes flashIn{0%{opacity:.5;transform:scale(.85);}100%{opacity:0;transform:scale(1.15);}}
+.gk-battle-count{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;
+  color:#fff;letter-spacing:1px;line-height:1;text-align:center;}
+.gk-battle-clabel{font-family:'Barlow',sans-serif;font-size:9px;color:var(--dim2);text-align:center;}
+.cb-btn{width:100%;padding:13px 6px;border:none;border-radius:10px;cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:900;
+  letter-spacing:1.5px;position:relative;overflow:hidden;transition:transform .08s;
+  user-select:none;-webkit-tap-highlight-color:transparent;}
+.cb-btn:active{transform:scale(.91);}
+.cb-btn.home-btn{background:linear-gradient(135deg,#0d2a50,#082040);
+  border:2px solid rgba(0,200,255,.5);color:var(--cyan);
+  animation:cbPulseH 2.2s ease-in-out infinite;}
+@keyframes cbPulseH{0%,100%{box-shadow:0 0 14px rgba(0,200,255,.18);}
+  50%{box-shadow:0 0 32px rgba(0,200,255,.55),0 0 60px rgba(0,200,255,.18);}}
+.cb-btn.away-btn{background:linear-gradient(135deg,#400d0d,#280808);
+  border:2px solid rgba(255,60,60,.5);color:#ff6060;
+  animation:cbPulseA 2.2s ease-in-out infinite;}
+@keyframes cbPulseA{0%,100%{box-shadow:0 0 14px rgba(255,60,60,.18);}
+  50%{box-shadow:0 0 32px rgba(255,60,60,.55),0 0 60px rgba(255,60,60,.18);}}
+.cb-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.28);
+  width:0;height:0;transform:translate(-50%,-50%);
+  animation:cbRipple .45s ease-out forwards;pointer-events:none;}
+@keyframes cbRipple{to{width:220px;height:220px;opacity:0;}}
+.gk-tow-col{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;height:100%;}
+.gk-tow-bar-h{width:100%;height:10px;background:rgba(255,255,255,.06);border-radius:5px;
+  overflow:hidden;position:relative;margin:4px 0;}
+.gk-tow-home-fill{height:100%;background:linear-gradient(90deg,var(--cyan),#0088cc);
+  border-radius:5px;transition:width .5s ease;float:left;}
+.gk-tow-away-fill{height:100%;background:linear-gradient(90deg,#cc2222,#ff4444);
+  border-radius:5px;transition:width .5s ease;float:right;}
+.gk-tow-vs{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;
+  color:var(--cyan);letter-spacing:2px;
+  text-shadow:0 0 16px rgba(0,200,255,.8);
+  animation:vsPulse 2.5s ease-in-out infinite;}
+.gk-tow-pcts{font-family:'Barlow Condensed',sans-serif;font-size:10px;
+  color:var(--dim);letter-spacing:1px;text-align:center;line-height:1.4;}
+
+/* ── BOTTOM ROW ── */
+.gk-bottom-row{max-width:720px;margin:0 auto;display:grid;
+  grid-template-columns:1fr 1.6fr;gap:14px;align-items:start;}
+@media(max-width:560px){.gk-bottom-row{grid-template-columns:1fr;}}
+.gk-pred-box{background:rgba(4,12,30,.85);border:1px solid rgba(0,200,255,.11);
+  border-radius:12px;padding:16px;overflow:hidden;}
+.gk-pred-title{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:800;
+  letter-spacing:3px;color:var(--dim2);text-transform:uppercase;margin-bottom:13px;}
+.pred-teams-row{display:flex;align-items:center;justify-content:space-between;
+  font-family:'Barlow Condensed',sans-serif;font-size:10px;color:var(--dim);
+  letter-spacing:1px;margin-bottom:6px;}
+.pred-score-row{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:13px;}
+.pred-score-inp{width:54px;height:50px;background:rgba(0,0,0,.45);
+  border:1.5px solid rgba(0,200,255,.22);border-radius:8px;
+  color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;
+  text-align:center;outline:none;transition:border-color .2s;
+  -moz-appearance:textfield;}
+.pred-score-inp::-webkit-inner-spin-button,.pred-score-inp::-webkit-outer-spin-button{-webkit-appearance:none;}
+.pred-score-inp:focus{border-color:rgba(0,200,255,.6);}
+.pred-score-inp:disabled{opacity:.5;cursor:default;}
+.pred-sep{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:var(--dim2);}
+.pred-submit-btn{width:100%;padding:11px;border:1.5px solid rgba(0,200,255,.42);border-radius:8px;
+  background:rgba(0,200,255,.1);color:var(--cyan);font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:900;letter-spacing:2px;cursor:pointer;transition:all .18s;}
+.pred-submit-btn:hover:not(:disabled){background:rgba(0,200,255,.22);}
+.pred-submit-btn:disabled{opacity:.4;cursor:default;}
+.pred-locked-msg{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1.5px;
+  color:var(--dim);text-align:center;margin-top:8px;display:none;}
+
+/* ── GUNUN KAPIŞMASI ── */
 .gk-match-card{max-width:720px;margin:0 auto;
   background:rgba(4,12,30,.75);border:1.5px solid rgba(0,200,255,.14);
   border-radius:16px;padding:28px 24px 22px;
@@ -811,6 +903,8 @@ header{
 
 <!-- GÜNÜN KAPIŞMASI -->
 <div id="panel-gun">
+
+  <!-- Match card -->
   <div class="gk-match-card">
     <div class="gk-badge" id="gk-badge">GÜNÜN MAÇI</div>
     <div class="gk-teams" id="gk-teams">
@@ -818,13 +912,74 @@ header{
     </div>
     <div class="gk-meta" id="gk-meta"></div>
   </div>
-  <div class="gk-chat">
-    <div class="gk-chat-hdr"><div class="chat-dot"></div>CANLI SOHBET</div>
-    <div id="chat-msgs"></div>
-    <div id="chat-input-wrap">
-      <div class="chat-login-hint">Sohbet için <span onclick="openAuthModal()">giriş yap</span></div>
+
+  <!-- Click Battle -->
+  <div class="gk-battle-wrap">
+    <div class="gk-battle-title">⚔ TIKLAMA KAPIŞMASI ⚔</div>
+    <div class="gk-battle-grid">
+      <div class="gk-battle-team">
+        <div class="gk-charge-wrap side-home" id="cb-home-wrap">
+          <div class="gk-charge-ring" id="cb-home-ring">
+            <div class="gk-charge-inner">
+              <img id="cb-home-flag" src="https://flagcdn.com/w80/xx.png" alt="">
+            </div>
+          </div>
+          <div class="gk-charge-pulse"></div>
+        </div>
+        <div class="gk-battle-count" id="cb-home-cnt">0</div>
+        <div class="gk-battle-clabel">TOPLAM DESTEK</div>
+        <button class="cb-btn home-btn" onclick="cbClick('home',event)">⚡ DESTEKLE!</button>
+      </div>
+      <div class="gk-tow-col">
+        <div class="gk-tow-vs">VS</div>
+        <div class="gk-tow-bar-h">
+          <div class="gk-tow-home-fill" id="cb-tow-home" style="width:50%"></div>
+          <div class="gk-tow-away-fill" id="cb-tow-away" style="width:50%"></div>
+        </div>
+        <div class="gk-tow-pcts"><span id="cb-home-pct">50%</span> · <span id="cb-away-pct">50%</span></div>
+      </div>
+      <div class="gk-battle-team">
+        <div class="gk-charge-wrap side-away" id="cb-away-wrap">
+          <div class="gk-charge-ring" id="cb-away-ring">
+            <div class="gk-charge-inner">
+              <img id="cb-away-flag" src="https://flagcdn.com/w80/xx.png" alt="">
+            </div>
+          </div>
+          <div class="gk-charge-pulse"></div>
+        </div>
+        <div class="gk-battle-count" id="cb-away-cnt">0</div>
+        <div class="gk-battle-clabel">TOPLAM DESTEK</div>
+        <button class="cb-btn away-btn" onclick="cbClick('away',event)">🔥 DESTEKLE!</button>
+      </div>
     </div>
   </div>
+
+  <!-- Bottom row: prediction + chat -->
+  <div class="gk-bottom-row">
+    <div class="gk-pred-box">
+      <div class="gk-pred-title">⚽ SKOR TAHMİNİ</div>
+      <div class="pred-teams-row">
+        <span id="pred-home-name">EV SAHİBİ</span>
+        <span>vs</span>
+        <span id="pred-away-name">DEPLASMAN</span>
+      </div>
+      <div class="pred-score-row">
+        <input type="number" class="pred-score-inp" id="pred-home-score" min="0" max="20" value="0">
+        <span class="pred-sep">:</span>
+        <input type="number" class="pred-score-inp" id="pred-away-score" min="0" max="20" value="0">
+      </div>
+      <button class="pred-submit-btn" id="pred-submit-btn" onclick="submitPrediction()">TAHMİNİ GÖNDER</button>
+      <div class="pred-locked-msg" id="pred-locked-msg">✓ TAHMİNİNİZ KAYDEDİLDİ</div>
+    </div>
+    <div class="gk-chat">
+      <div class="gk-chat-hdr"><div class="chat-dot"></div>CANLI SOHBET</div>
+      <div id="chat-msgs"></div>
+      <div id="chat-input-wrap">
+        <div class="chat-login-hint">Sohbet için <span onclick="openAuthModal()">giriş yap</span></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div id="panel-rush">
@@ -2392,25 +2547,183 @@ function renderNextMatch(){
     return;
   }
   const{game:g,status}=m;
-  const hF=escHtml(getWCFlag(g.home_team_id)),aF=escHtml(getWCFlag(g.away_team_id));
+  const hFUrl=escHtml(getWCFlag(g.home_team_id)),aFUrl=escHtml(getWCFlag(g.away_team_id));
   const hN=escHtml(getWCName(g.home_team_id)),aN=escHtml(getWCName(g.away_team_id));
+  const hCC=(wcTeams[g.home_team_id]?.iso2||'').toLowerCase();
+  const aCC=(wcTeams[g.away_team_id]?.iso2||'').toLowerCase();
   const teamTpl=(f,n)=>`<div class="gk-team"><div class="gk-flag"><img src="${f}" alt="${n}" onerror="this.style.opacity='.3'"></div><div class="gk-team-name">${n}</div></div>`;
   if(status==='live'){
     badge.innerHTML=`<span class="gk-live-badge">● CANLI</span> ${escHtml(g.time_elapsed)}'`;
-    teamsEl.innerHTML=teamTpl(hF,hN)+`<div class="gk-vs"><div class="gk-score live-score">${g.home_score??0} – ${g.away_score??0}</div></div>`+teamTpl(aF,aN);
+    teamsEl.innerHTML=teamTpl(hFUrl,hN)+`<div class="gk-vs"><div class="gk-score live-score">${g.home_score??0} – ${g.away_score??0}</div></div>`+teamTpl(aFUrl,aN);
     if(metaEl)metaEl.textContent='Canlı yayın devam ediyor';
   }else if(status==='upcoming'){
     badge.textContent='GÜNÜN MAÇI';
     const d=new Date(g.date||g.local_date);
     const ds=d.toLocaleDateString('tr-TR',{day:'2-digit',month:'long',year:'numeric'});
     const ts=d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
-    teamsEl.innerHTML=teamTpl(hF,hN)+`<div class="gk-vs"><div class="gk-vs-txt">VS</div></div>`+teamTpl(aF,aN);
+    teamsEl.innerHTML=teamTpl(hFUrl,hN)+`<div class="gk-vs"><div class="gk-vs-txt">VS</div></div>`+teamTpl(aFUrl,aN);
     if(metaEl)metaEl.textContent=ds+' • '+ts+(g.group?' • Grup '+g.group:'');
   }else{
     badge.textContent='SON MAÇ';
-    teamsEl.innerHTML=teamTpl(hF,hN)+`<div class="gk-vs"><div class="gk-score">${g.home_score??0} – ${g.away_score??0}</div></div>`+teamTpl(aF,aN);
+    teamsEl.innerHTML=teamTpl(hFUrl,hN)+`<div class="gk-vs"><div class="gk-score">${g.home_score??0} – ${g.away_score??0}</div></div>`+teamTpl(aFUrl,aN);
     if(metaEl)metaEl.textContent='Maç sona erdi';
   }
+  // wire click battle + score prediction
+  const matchId=String(g.id||g.home_team_id+'_'+g.away_team_id);
+  const hFlag=`https://flagcdn.com/w160/${hCC||'xx'}.png`;
+  const aFlag=`https://flagcdn.com/w160/${aCC||'xx'}.png`;
+  cbSetupMatch(matchId,hCC,aCC,hFlag,aFlag,getWCName(g.home_team_id),getWCName(g.away_team_id));
+}
+
+// ── CLICK BATTLE ─────────────────────────────────────────────────────
+let cbCounts={home:0,away:0};
+let cbTotals={home:0,away:0};
+let cbMatchId=null;
+let cbSyncTimeout=null;
+let predMatchId=null;
+
+function cbSetupMatch(matchId,homeCC,awayCC,homeFlag,awayFlag,homeName,awayName){
+  cbMatchId=matchId;
+  predMatchId=matchId;
+  const hImg=document.getElementById('cb-home-flag');
+  const aImg=document.getElementById('cb-away-flag');
+  if(hImg){hImg.src=homeFlag||`https://flagcdn.com/w80/${(homeCC||'xx').toLowerCase()}.png`;hImg.alt=homeName||homeCC||'';}
+  if(aImg){aImg.src=awayFlag||`https://flagcdn.com/w80/${(awayCC||'xx').toLowerCase()}.png`;aImg.alt=awayName||awayCC||'';}
+  const pHN=document.getElementById('pred-home-name');
+  const pAN=document.getElementById('pred-away-name');
+  if(pHN)pHN.textContent=homeName||homeCC||'—';
+  if(pAN)pAN.textContent=awayName||awayCC||'—';
+  cbCounts={home:0,away:0};
+  cbSetCharge('home',0);
+  cbSetCharge('away',0);
+  cbLoadTotals();
+  loadPrediction();
+}
+
+function cbClick(side,e){
+  if(!cbMatchId)return;
+  const btn=e.currentTarget;
+  const r=document.createElement('div');r.className='cb-ripple';
+  const rect=btn.getBoundingClientRect();
+  r.style.left=(e.clientX-rect.left)+'px';r.style.top=(e.clientY-rect.top)+'px';
+  btn.appendChild(r);setTimeout(()=>r.remove(),500);
+  const wrap=document.getElementById('cb-'+side+'-wrap');
+  if(wrap){const f=document.createElement('div');f.className='gk-click-flash';wrap.appendChild(f);setTimeout(()=>f.remove(),280);}
+  cbCounts[side]++;
+  updateCbUI();
+  clearTimeout(cbSyncTimeout);
+  cbSyncTimeout=setTimeout(()=>cbSync(),1200);
+}
+
+function updateCbUI(){
+  const h=cbCounts.home+cbTotals.home;
+  const a=cbCounts.away+cbTotals.away;
+  const tot=h+a||1;
+  const hPct=Math.round(h/tot*100);
+  const aPct=100-hPct;
+  const hC=document.getElementById('cb-home-cnt');
+  const aC=document.getElementById('cb-away-cnt');
+  if(hC)hC.textContent=h;
+  if(aC)aC.textContent=a;
+  const hF=document.getElementById('cb-tow-home');
+  const aF=document.getElementById('cb-tow-away');
+  if(hF)hF.style.width=hPct+'%';
+  if(aF)aF.style.width=aPct+'%';
+  const hPE=document.getElementById('cb-home-pct');
+  const aPE=document.getElementById('cb-away-pct');
+  if(hPE)hPE.textContent=hPct+'%';
+  if(aPE)aPE.textContent=aPct+'%';
+  cbSetCharge('home',Math.min(cbCounts.home/30,1));
+  cbSetCharge('away',Math.min(cbCounts.away/30,1));
+}
+
+function cbSetCharge(side,pct){
+  const ring=document.getElementById('cb-'+side+'-ring');
+  if(!ring)return;
+  const img=ring.querySelector('img');
+  const inner=ring.querySelector('.gk-charge-inner');
+  if(!img||!inner)return;
+  const sat=(0.3+pct*0.7).toFixed(2);
+  const bri=(0.55+pct*0.45).toFixed(2);
+  const sc=(1+pct*0.14).toFixed(3);
+  img.style.filter=`saturate(${sat}) brightness(${bri})`;
+  inner.style.transform=`scale(${sc})`;
+  const deg=Math.round(pct*360);
+  const clr=side==='home'?`rgba(0,200,255,${(0.35+pct*0.65).toFixed(2)})`:`rgba(255,60,60,${(0.35+pct*0.65).toFixed(2)})`;
+  ring.style.background=`conic-gradient(${clr} ${deg}deg, rgba(255,255,255,.05) ${deg}deg)`;
+}
+
+async function cbLoadTotals(){
+  if(!sb||!cbMatchId){cbTotals={home:0,away:0};updateCbUI();return;}
+  try{
+    const{data}=await sb.from('click_battles').select('side,clicks').eq('match_id',cbMatchId);
+    const h=(data||[]).filter(r=>r.side==='home').reduce((s,r)=>s+(r.clicks||0),0);
+    const a=(data||[]).filter(r=>r.side==='away').reduce((s,r)=>s+(r.clicks||0),0);
+    cbTotals={home:h,away:a};
+  }catch(e){cbTotals={home:0,away:0};}
+  updateCbUI();
+}
+
+async function cbSync(){
+  if(!sb||!cbMatchId)return;
+  const toSync={...cbCounts};
+  if(!toSync.home&&!toSync.away)return;
+  cbCounts={home:0,away:0};
+  const userId=CR_USER?CR_USER.id:null;
+  for(const side of['home','away']){
+    if(!toSync[side])continue;
+    try{
+      if(userId){
+        const{data:ex}=await sb.from('click_battles').select('id,clicks').eq('match_id',cbMatchId).eq('user_id',userId).eq('side',side).maybeSingle();
+        if(ex){await sb.from('click_battles').update({clicks:(ex.clicks||0)+toSync[side]}).eq('id',ex.id);}
+        else{await sb.from('click_battles').insert({match_id:cbMatchId,user_id:userId,side,clicks:toSync[side]});}
+      }else{
+        await sb.from('click_battles').insert({match_id:cbMatchId,user_id:null,side,clicks:toSync[side]});
+      }
+    }catch(e){}
+  }
+  cbLoadTotals();
+}
+
+// ── SCORE PREDICTION ──────────────────────────────────────────────────
+async function loadPrediction(){
+  if(!CR_USER||!sb||!predMatchId)return;
+  const btn=document.getElementById('pred-submit-btn');
+  const lock=document.getElementById('pred-locked-msg');
+  const hInp=document.getElementById('pred-home-score');
+  const aInp=document.getElementById('pred-away-score');
+  if(!btn)return;
+  try{
+    const{data}=await sb.from('score_predictions').select('home_score,away_score').eq('match_id',predMatchId).eq('user_id',CR_USER.id).maybeSingle();
+    if(data){
+      if(hInp){hInp.value=data.home_score;hInp.disabled=true;}
+      if(aInp){aInp.value=data.away_score;aInp.disabled=true;}
+      btn.disabled=true;
+      if(lock)lock.style.display='block';
+    }
+  }catch(e){}
+}
+
+async function submitPrediction(){
+  if(!CR_USER||!sb){openAuthModal();return;}
+  if(!predMatchId)return;
+  const hInp=document.getElementById('pred-home-score');
+  const aInp=document.getElementById('pred-away-score');
+  const btn=document.getElementById('pred-submit-btn');
+  const lock=document.getElementById('pred-locked-msg');
+  const hs=parseInt(hInp?.value??0);
+  const as_=parseInt(aInp?.value??0);
+  if(isNaN(hs)||isNaN(as_)||hs<0||as_<0)return;
+  if(btn)btn.disabled=true;
+  try{
+    await sb.from('score_predictions').upsert(
+      {match_id:predMatchId,user_id:CR_USER.id,home_score:hs,away_score:as_},
+      {onConflict:'match_id,user_id'}
+    );
+    if(hInp)hInp.disabled=true;
+    if(aInp)aInp.disabled=true;
+    if(lock)lock.style.display='block';
+  }catch(e){if(btn)btn.disabled=false;}
 }
 
 // ── CHAT ─────────────────────────────────────────────────────────────
