@@ -1015,6 +1015,14 @@ header{
         <div class="sb-card-sub">Bildirimler, gizlilik, dil</div>
       </div>
     </a>
+    <div class="sb-section">Yönetim</div>
+    <a class="sb-card" href="#" onclick="resetAllScores();return false;" id="sb-reset-btn">
+      <div class="sb-card-icon" style="background:rgba(220,50,50,.12)">🗑️</div>
+      <div>
+        <div class="sb-card-title" style="color:#ff6060;">Puanları Sıfırla</div>
+        <div class="sb-card-sub">Tüm yerel puanları temizle</div>
+      </div>
+    </a>
   </div>
   <div class="sb-foot">
     <div class="sb-version">CLICKRUSHER v2.6 · TOURNAMENT EDITION</div>
@@ -1910,6 +1918,18 @@ if(lbEl){
 
 // ── POINT SYSTEM ──────────────────────────────────────────────────────
 function crLoadScores(){try{return JSON.parse(localStorage.getItem('CR_SCORES'))||{countries:{},players:{}};}catch(e){return{countries:{},players:{}};}}
+
+function resetAllScores(){
+  if(!confirm('Tüm yerel puanlar sıfırlanacak. Emin misin?'))return;
+  localStorage.removeItem('CR_SCORES');
+  crRefreshGrid();
+  // Also delete this user's own Supabase scores if logged in
+  if(sb&&CR_USER){
+    sb.from('user_scores').delete().eq('user_id',CR_USER.id).then(()=>{});
+  }
+  closeSidebar();
+  alert('Yerel puanlar sıfırlandı! Diğer kullanıcıların verilerini Supabase SQL\'den sıfırla:\nTRUNCATE TABLE public.user_scores;');
+}
 function crSaveScores(s){try{localStorage.setItem('CR_SCORES',JSON.stringify(s));}catch(e){}}
 function crAddPoints(playerName,country,flag,points,countryCode){
   if(!playerName||!country||points<=0)return;
