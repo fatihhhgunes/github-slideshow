@@ -85,7 +85,8 @@ header{
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(0,200,255,.12);
 }
-.logo-block{text-align:center;line-height:1.05;}
+.logo-block{text-align:center;line-height:1.05;cursor:pointer;transition:opacity .15s;}
+.logo-block:hover{opacity:.85;}
 .logo-text{
   font-family:'Barlow Condensed',sans-serif;font-size:65px;font-weight:900;
   letter-spacing:6px;color:#fff;
@@ -1025,7 +1026,7 @@ header{
   <button class="sb-toggle" id="sb-toggle">
     <span></span><span></span><span></span>
   </button>
-  <a class="logo-block" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="text-decoration:none;cursor:pointer;">
+  <a class="logo-block" href="#" onclick="goHome();return false;" style="text-decoration:none;cursor:pointer;">
     <div class="logo-text">CLICKRUSHER</div>
     <div class="logo-sub">TOURNAMENT 2026</div>
   </a>
@@ -1907,20 +1908,6 @@ if(lbEl){
   });
 }
 
-// TOP 3 (all equal size, ordered: #2 left, #1 center, #3 right)
-const t3=document.getElementById('top3-grid');
-[[1,'s'],[0,'g'],[2,'b']].forEach(([idx,cls])=>{
-  const {t,pts}=TOP3[idx];
-  const d=document.createElement('div');d.className=`medal ${cls}`;
-  d.innerHTML=`<div class="medal-rank">#${idx+1}</div>
-    <div class="flag-circ">
-      <img src="${FLAG_BASE}${t.fc}.png" onerror="this.style.opacity='.5'" alt="${t.name}">
-    </div>
-    <div class="medal-name">${t.name}</div>
-    <div class="medal-pts">${pts.toLocaleString('tr')} puan</div>`;
-  t3.appendChild(d);
-});
-
 // ── POINT SYSTEM ──────────────────────────────────────────────────────
 function crLoadScores(){try{return JSON.parse(localStorage.getItem('CR_SCORES'))||{countries:{},players:{}};}catch(e){return{countries:{},players:{}};}}
 function crSaveScores(s){try{localStorage.setItem('CR_SCORES',JSON.stringify(s));}catch(e){}}
@@ -1947,20 +1934,38 @@ function crGetCountryPts(teamName){const s=crLoadScores();return s.countries[tea
 function crRefreshGrid(){
   const scores=crLoadScores();
   const ng=document.getElementById('nations-grid');
-  if(!ng)return;
-  ng.innerHTML='';
+  const t3El=document.getElementById('top3-grid');
   const sorted=[...TEAMS].sort((a,b)=>{
     const pa=scores.countries[a.name]||0,pb=scores.countries[b.name]||0;
     if(pb!==pa)return pb-pa;
     return b.pts-a.pts||(b.w-a.w);
   });
+  // Rebuild top3-grid dynamically (#2 left, #1 center, #3 right)
+  if(t3El){
+    t3El.innerHTML='';
+    [[1,'s'],[0,'g'],[2,'b']].forEach(([idx,cls])=>{
+      const t=sorted[idx];
+      if(!t)return;
+      const pts=scores.countries[t.name]||0;
+      const d=document.createElement('div');d.className=`medal ${cls}`;
+      d.innerHTML=`<div class="medal-rank">#${idx+1}</div>
+        <div class="flag-circ">
+          <img src="${FLAG_BASE}${t.fc}.png" onerror="this.style.opacity='.5'" alt="${t.name}">
+        </div>
+        <div class="medal-name">${t.name}</div>
+        <div class="medal-pts">${pts.toLocaleString('tr')} puan</div>`;
+      t3El.appendChild(d);
+    });
+  }
+  if(!ng)return;
+  ng.innerHTML='';
   const maxPts=sorted.reduce((m,t)=>Math.max(m,scores.countries[t.name]||0),1);
   sorted.forEach((t,i)=>{
     const rank=i+1;
     const rkCls=rank===4?'rk4':rank<=10?'rk5':'';
     const gamePts=scores.countries[t.name]||0;
     const barPct=maxPts>0?Math.round(gamePts/maxPts*100):0;
-    const ptsLabel=gamePts>0?gamePts.toLocaleString('tr')+' puan':'0 puan';
+    const ptsLabel=gamePts.toLocaleString('tr')+' puan';
     const d=document.createElement('div');d.className='nf-item';
     d.innerHTML=`<div class="nf-flag-wrap">
         <div class="nf-rank ${rkCls}">#${rank}</div>
@@ -1983,6 +1988,12 @@ crRefreshGrid();
 const ALL_PANELS=['panel-main','panel-gun','panel-rush','panel-quiz'];
 let rushLoaded=false,chatInited=false;
 function calcIframeH(){const hh=document.querySelector('header').offsetHeight,th=document.querySelector('.tabs').offsetHeight;return(window.innerHeight-hh-th)+'px';}
+
+function goHome(){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab==='bayrak'));
+  switchPanel('panel-main');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
 function switchPanel(target){
   const cur=ALL_PANELS.find(id=>{const el=document.getElementById(id);return el&&el.style.display!=='none'&&el.style.display!=='';});
